@@ -1,4 +1,4 @@
 include \/mol/app/demo
 
-include \/company/template/logo/demo
-include \/company/template/button/demo
+include \/bog/WikiLive/logo/demo
+include \/bog/WikiLive/button/demo

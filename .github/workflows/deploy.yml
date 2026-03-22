@@ -1,6 +1,6 @@
 #FIXME change file name to actual app name
 #FIXME change to actual app name
-name: $company_template_app
+name: $bog_WikiLive_app
 
 #FIXME optional: change permissions if you don't want to allow everything
 # https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs#defining-access-for-the-github_token-permissions
@@ -20,7 +20,7 @@ jobs:
         steps:
             - uses: hyoo-ru/mam_build@master2
               with:
-                  package: 'company/template' #FIXME namespace of this package
+                  package: 'bog/WikiLive' #FIXME namespace of this package
                   modules: 'app docs' #FIXME which modules to build, remove line if only on module at the root
 
             #FIXME remove one of the following
@@ -28,10 +28,10 @@ jobs:
             - uses: hyoo-ru/gh-deploy@v4.4.1
               if: github.ref == 'refs/heads/master'
               with:
-                  folder: 'company/template/app/-' #FIXME path to build app
+                  folder: 'bog/WikiLive/app/-' #FIXME path to build app
 
             - uses: hyoo-ru/gh-deploy@v4.4.1
               if: github.ref == 'refs/heads/master'
               with:
-                  folder: 'company/template/docs/-'
+                  folder: 'bog/WikiLive/docs/-'
                   target-folder: 'docs/' # Second sub-module

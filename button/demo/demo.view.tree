@@ -1,8 +1,8 @@
-$company_template_button_demo $mol_example_small
+$bog_WikiLive_button_demo $mol_example_small
 	title \Company Button
 	sub /
-		<= Login $company_template_button title \Войти
-		<= Logout $company_template_button title \Выйти
+		<= Login $bog_WikiLive_button title \Войти
+		<= Logout $bog_WikiLive_button title \Выйти
 	tags /
 		\logo
 		\icon
