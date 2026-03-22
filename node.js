@@ -8369,31 +8369,6 @@ var $;
 })($ || ($ = {}));
 
 ;
-	($.$mol_icon_molecule) = class $mol_icon_molecule extends ($.$mol_icon) {
-		path(){
-			return "M7.27,10L9,7H14.42L15.58,5L15.5,4.5A1.5,1.5 0 0,1 17,3A1.5,1.5 0 0,1 18.5,4.5C18.5,5.21 18,5.81 17.33,5.96L16.37,7.63L17.73,10L18.59,8.5L18.5,8A1.5,1.5 0 0,1 20,6.5A1.5,1.5 0 0,1 21.5,8C21.5,8.71 21,9.3 20.35,9.46L18.89,12L20.62,15C21.39,15.07 22,15.71 22,16.5A1.5,1.5 0 0,1 20.5,18A1.5,1.5 0 0,1 19,16.5V16.24L17.73,14L16.37,16.37L17.33,18.04C18,18.19 18.5,18.79 18.5,19.5A1.5,1.5 0 0,1 17,21A1.5,1.5 0 0,1 15.5,19.5L15.58,19L14.42,17H10.58L9.42,19L9.5,19.5A1.5,1.5 0 0,1 8,21A1.5,1.5 0 0,1 6.5,19.5C6.5,18.79 7,18.19 7.67,18.04L8.63,16.37L4.38,9C3.61,8.93 3,8.29 3,7.5A1.5,1.5 0 0,1 4.5,6A1.5,1.5 0 0,1 6,7.5C6,7.59 6,7.68 6,7.76L7.27,10M10.15,9L8.42,12L10.15,15H14.85L16.58,12L14.85,9H10.15Z";
-		}
-	};
-
-
-;
-"use strict";
-
-;
-	($.$company_template_logo) = class $company_template_logo extends ($.$mol_icon_molecule) {};
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("company/template/logo/logo.view.css", "[company_template_logo] {\n\tanimation: rotate 4s infinite;\n}\n\n@keyframes rotate {\n\t0% {\n\t\ttransform: rotate(0deg)\n\t}\n\n\t100% {\n\t\ttransform: rotate(360deg)\n\t}\n}\n");
-})($ || ($ = {}));
-
-;
-"use strict";
-
-;
 	($.$mol_theme_auto) = class $mol_theme_auto extends ($.$mol_plugin) {
 		dark(){
 			return "$mol_theme_dark";
@@ -8646,31 +8621,6 @@ var $;
         $$.$mol_lights_toggle = $mol_lights_toggle;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
-
-;
-	($.$mol_button_major) = class $mol_button_major extends ($.$mol_button_minor) {
-		theme(){
-			return "$mol_theme_base";
-		}
-	};
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/button/major/major.view.css", "[mol_button_major] {\n\tbackground-color: var(--mol_theme_back);\n\tcolor: var(--mol_theme_text);\n}\n");
-})($ || ($ = {}));
-
-;
-"use strict";
-
-;
-	($.$company_template_button) = class $company_template_button extends ($.$mol_button_major) {};
-
-
-;
-"use strict";
 
 ;
 	($.$mol_stack) = class $mol_stack extends ($.$mol_view) {};
@@ -11300,56 +11250,33 @@ var $;
 })($ || ($ = {}));
 
 ;
-	($.$company_template_app) = class $company_template_app extends ($.$mol_book2_catalog) {
-		Logo2(){
-			const obj = new this.$.$company_template_logo();
-			return obj;
-		}
+	($.$bog_WikiLive_app) = class $bog_WikiLive_app extends ($.$mol_book2_catalog) {
 		Theme(){
 			const obj = new this.$.$mol_theme_auto();
 			return obj;
 		}
 		Sources(){
 			const obj = new this.$.$mol_link_source();
-			(obj.uri) = () => ("https://github.com/Lyumih/richtemplate");
+			(obj.uri) = () => ("https://github.com/b-on-g/WikiLive");
 			return obj;
 		}
 		Lighter(){
 			const obj = new this.$.$mol_lights_toggle();
 			return obj;
 		}
-		Logout_button(){
-			const obj = new this.$.$company_template_button();
-			(obj.title) = () => ("Выйти");
-			return obj;
-		}
-		Docs_uri(){
-			const obj = new this.$.$mol_link();
-			(obj.title) = () => ("Демонстрации");
-			(obj.uri) = () => ("http://localhost:9080/company/template/docs/-/test.html");
-			return obj;
-		}
-		Docs(){
-			const obj = new this.$.$mol_page();
-			(obj.body) = () => ([(this.Docs_uri())]);
-			return obj;
-		}
 		Hello(){
 			const obj = new this.$.$mol_text();
-			(obj.text) = () => ("# Привет https://mol.hyoo.ru/#!section=docs/=6leyma_5ks814]\nИнструкция по шаблону читай на https://github.com/Lyumih/richtemplate");
+			(obj.text) = () => ("# WikiLive\nЖивые таблицы в тексте");
 			return obj;
 		}
-		Page1(){
+		Page_main(){
 			const obj = new this.$.$mol_page();
-			(obj.title) = () => ("Привет $mol!");
+			(obj.title) = () => ("WikiLive");
 			(obj.body) = () => ([(this.Hello())]);
 			return obj;
 		}
 		menu_title(){
-			return "Моя компания";
-		}
-		Menu_logo(){
-			return (this.Logo2());
+			return "WikiLive";
 		}
 		param(){
 			return "page";
@@ -11360,25 +11287,15 @@ var $;
 		menu_tools(){
 			return [(this.Sources()), (this.Lighter())];
 		}
-		menu_foot(){
-			return [(this.Logout_button())];
-		}
 		Spread_default(){
-			return (this.Docs());
-		}
-		spreads(){
-			return {"hello": (this.Page1())};
+			return (this.Page_main());
 		}
 	};
-	($mol_mem(($.$company_template_app.prototype), "Logo2"));
-	($mol_mem(($.$company_template_app.prototype), "Theme"));
-	($mol_mem(($.$company_template_app.prototype), "Sources"));
-	($mol_mem(($.$company_template_app.prototype), "Lighter"));
-	($mol_mem(($.$company_template_app.prototype), "Logout_button"));
-	($mol_mem(($.$company_template_app.prototype), "Docs_uri"));
-	($mol_mem(($.$company_template_app.prototype), "Docs"));
-	($mol_mem(($.$company_template_app.prototype), "Hello"));
-	($mol_mem(($.$company_template_app.prototype), "Page1"));
+	($mol_mem(($.$bog_WikiLive_app.prototype), "Theme"));
+	($mol_mem(($.$bog_WikiLive_app.prototype), "Sources"));
+	($mol_mem(($.$bog_WikiLive_app.prototype), "Lighter"));
+	($mol_mem(($.$bog_WikiLive_app.prototype), "Hello"));
+	($mol_mem(($.$bog_WikiLive_app.prototype), "Page_main"));
 
 
 ;

@@ -357,10 +357,6 @@ $mol_book2_catalog $mol_book2
 		sub /
 			<= Spread_close_icon $mol_icon_close
 
-$mol_icon_molecule $mol_icon path \M7.27,10L9,7H14.42L15.58,5L15.5,4.5A1.5,1.5 0 0,1 17,3A1.5,1.5 0 0,1 18.5,4.5C18.5,5.21 18,5.81 17.33,5.96L16.37,7.63L17.73,10L18.59,8.5L18.5,8A1.5,1.5 0 0,1 20,6.5A1.5,1.5 0 0,1 21.5,8C21.5,8.71 21,9.3 20.35,9.46L18.89,12L20.62,15C21.39,15.07 22,15.71 22,16.5A1.5,1.5 0 0,1 20.5,18A1.5,1.5 0 0,1 19,16.5V16.24L17.73,14L16.37,16.37L17.33,18.04C18,18.19 18.5,18.79 18.5,19.5A1.5,1.5 0 0,1 17,21A1.5,1.5 0 0,1 15.5,19.5L15.58,19L14.42,17H10.58L9.42,19L9.5,19.5A1.5,1.5 0 0,1 8,21A1.5,1.5 0 0,1 6.5,19.5C6.5,18.79 7,18.19 7.67,18.04L8.63,16.37L4.38,9C3.61,8.93 3,8.29 3,7.5A1.5,1.5 0 0,1 4.5,6A1.5,1.5 0 0,1 6,7.5C6,7.59 6,7.68 6,7.76L7.27,10M10.15,9L8.42,12L10.15,15H14.85L16.58,12L14.85,9H10.15Z
-
-$company_template_logo $mol_icon_molecule
-
 $mol_theme_auto $mol_plugin
 	light \$mol_theme_light
 	attr * mol_theme <= theme <= dark \$mol_theme_dark
@@ -395,11 +391,6 @@ $mol_lights_toggle $mol_check_icon
 	Icon <= Lights_icon $mol_icon_brightness_4
 	hint @ \Toggle lights
 	checked? <=> lights? false
-
-$mol_button_major $mol_button_minor
-	theme \$mol_theme_base
-
-$company_template_button $mol_button_major
 
 $mol_stack $mol_view
 
@@ -770,31 +761,18 @@ $mol_text_list_item $mol_paragraph
 		^
 		mol_text_list_item_index <= index 0
 
-$company_template_app $mol_book2_catalog
-	menu_title \Моя компания
-	Menu_logo <= Logo2 $company_template_logo
+$bog_WikiLive_app $mol_book2_catalog
+	menu_title \WikiLive
 	param \page
 	plugins /
 		<= Theme $mol_theme_auto
 	menu_tools /
 		<= Sources $mol_link_source
-			uri \https://github.com/Lyumih/richtemplate
+			uri \https://github.com/b-on-g/WikiLive
 		<= Lighter $mol_lights_toggle
-	menu_foot /
-		<= Logout_button $company_template_button
-			title \Выйти
-	Spread_default 
-		<= Docs $mol_page 
-			body / 
-				<= Docs_uri $mol_link 
-					title \Демонстрации
-					uri \http://localhost:9080/company/template/docs/-/test.html
-	spreads *
-		hello <= Page1 $mol_page
-			title \Привет $mol!
-			body /
-				<= Hello $mol_text text \
-					\# Привет https://mol.hyoo.ru/#!section=docs/=6leyma_5ks814]
-					\Инструкция по шаблону читай на https://github.com/Lyumih/richtemplate
-			
-				
+	Spread_default <= Page_main $mol_page
+		title \WikiLive
+		body /
+			<= Hello $mol_text text \
+				\# WikiLive
+				\Живые таблицы в тексте

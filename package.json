@@ -1,5 +1,5 @@
 {
-  "name": "company_template_app",
+  "name": "bog_WikiLive_app",
   "version": "0.0.1",
   "exports": {
     "node": {
@@ -15,9 +15,9 @@
   "browser": "./web.js",
   "types": "./web.d.ts",
   "keywords": [
-    "$company_template_app",
-    "$company_template",
-    "$company",
+    "$bog_WikiLive_app",
+    "$bog_WikiLive",
+    "$bog",
     "$mol_book2_catalog",
     "$mol_book2",
     "$mol",
@@ -190,8 +190,6 @@
     "$mol_link",
     "$mol_page",
     "$mol_match",
-    "$company_template_logo",
-    "$mol_icon_molecule",
     "$mol_theme_auto",
     "$mol_link_source",
     "$mol_icon_script_text",
@@ -202,8 +200,6 @@
     "$mol_dom_event",
     "$mol_icon_brightness_4",
     "$mol_icon_brightness",
-    "$company_template_button",
-    "$mol_button_major",
     "$mol_text_text",
     "$mol_text",
     "$mol_text_list",

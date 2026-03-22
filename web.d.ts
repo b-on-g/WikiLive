@@ -2731,26 +2731,6 @@ declare namespace $.$$ {
 
 declare namespace $ {
 
-	export class $mol_icon_molecule extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=molecule.view.tree.d.ts.map
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $company_template_logo extends $mol_icon_molecule {
-	}
-	
-}
-
-//# sourceMappingURL=logo.view.tree.d.ts.map
-declare namespace $ {
-
 	export class $mol_theme_auto extends $mol_plugin {
 		dark( ): string
 		theme( ): ReturnType< $mol_theme_auto['dark'] >
@@ -2884,26 +2864,6 @@ declare namespace $.$$ {
     }
 }
 
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_button_major extends $mol_button_minor {
-		theme( ): string
-	}
-	
-}
-
-//# sourceMappingURL=major.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $company_template_button extends $mol_button_major {
-	}
-	
-}
-
-//# sourceMappingURL=button.view.tree.d.ts.map
 declare namespace $ {
 }
 
@@ -4419,66 +4379,37 @@ declare namespace $ {
 //# sourceMappingURL=list.view.tree.d.ts.map
 declare namespace $ {
 
-	type $mol_link_source__uri_company_template_app_1 = $mol_type_enforce<
+	type $mol_link_source__uri_bog_WikiLive_app_1 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_link_source['uri'] >
 	>
-	type $company_template_button__title_company_template_app_2 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $company_template_button['title'] >
-	>
-	type $mol_link__title_company_template_app_3 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link['title'] >
-	>
-	type $mol_link__uri_company_template_app_4 = $mol_type_enforce<
-		string
-		,
-		ReturnType< $mol_link['uri'] >
-	>
-	type $mol_page__body_company_template_app_5 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_page['body'] >
-	>
-	type $mol_text__text_company_template_app_6 = $mol_type_enforce<
+	type $mol_text__text_bog_WikiLive_app_2 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_text['text'] >
 	>
-	type $mol_page__title_company_template_app_7 = $mol_type_enforce<
+	type $mol_page__title_bog_WikiLive_app_3 = $mol_type_enforce<
 		string
 		,
 		ReturnType< $mol_page['title'] >
 	>
-	type $mol_page__body_company_template_app_8 = $mol_type_enforce<
+	type $mol_page__body_bog_WikiLive_app_4 = $mol_type_enforce<
 		readonly(any)[]
 		,
 		ReturnType< $mol_page['body'] >
 	>
-	export class $company_template_app extends $mol_book2_catalog {
-		Logo2( ): $company_template_logo
+	export class $bog_WikiLive_app extends $mol_book2_catalog {
 		Theme( ): $mol_theme_auto
 		Sources( ): $mol_link_source
 		Lighter( ): $mol_lights_toggle
-		Logout_button( ): $company_template_button
-		Docs_uri( ): $mol_link
-		Docs( ): $mol_page
 		Hello( ): $mol_text
-		Page1( ): $mol_page
+		Page_main( ): $mol_page
 		menu_title( ): string
-		Menu_logo( ): ReturnType< $company_template_app['Logo2'] >
 		param( ): string
 		plugins( ): readonly(any)[]
 		menu_tools( ): readonly(any)[]
-		menu_foot( ): readonly(any)[]
-		Spread_default( ): ReturnType< $company_template_app['Docs'] >
-		spreads( ): ({ 
-			'hello': ReturnType< $company_template_app['Page1'] >,
-		}) 
+		Spread_default( ): ReturnType< $bog_WikiLive_app['Page_main'] >
 	}
 	
 }
