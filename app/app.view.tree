@@ -1,6 +1,5 @@
 $bog_WikiLive_app $mol_book2_catalog
 	menu_title \WikiLive
-	Menu_logo <= Logo2 $bog_WikiLive_logo
 	param \page
 	plugins /
 		<= Theme $mol_theme_auto
@@ -8,21 +7,9 @@ $bog_WikiLive_app $mol_book2_catalog
 		<= Sources $mol_link_source
 			uri \https://github.com/b-on-g/WikiLive
 		<= Lighter $mol_lights_toggle
-	menu_foot /
-		<= Logout_button $bog_WikiLive_button
-			title \Выйти
-	Spread_default 
-		<= Docs $mol_page 
-			body / 
-				<= Docs_uri $mol_link 
-					title \Демонстрации
-					uri \http://localhost:9080/bog/WikiLive/docs/-/test.html
-	spreads *
-		hello <= Page1 $mol_page
-			title \Привет $mol!
-			body /
-				<= Hello $mol_text text \
-					\# Привет https://mol.hyoo.ru/#!section=docs/=6leyma_5ks814]
-					\Инструкция по шаблону читай на https://github.com/b-on-g/WikiLive
-			
-				
+	Spread_default <= Page_main $mol_page
+		title \WikiLive
+		body /
+			<= Hello $mol_text text \
+				\# WikiLive
+				\Живые таблицы в тексте
