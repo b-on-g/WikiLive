@@ -1,0 +1,10 @@
+{
+	"name": "company_template_app",
+	"short_name": "company_template_app",
+	"description": "",
+	"id": "company_template_app",
+	"start_url": ".",
+	"display": "standalone",
+	"background_color": "#000000",
+	"theme_color": "#000000"
+}
