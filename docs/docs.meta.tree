@@ -1,0 +1,4 @@
+include \/mol/app/demo
+
+include \/bog/WikiLive/logo/demo
+include \/bog/WikiLive/button/demo
