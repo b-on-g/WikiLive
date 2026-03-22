@@ -1,0 +1,34 @@
+{
+	"project": "WikiLive",
+	"prd_path": "prd/prd.md",
+	"source_module": "bog/WikiLive/app",
+	"source_namespace": "$bog_WikiLive_app",
+	"entry_point": "bog/WikiLive/app/index.html",
+	"agent_instructions": {
+		"before_start": [
+			"Прочитай этот файл и git log --oneline -20",
+			"Прочитай PRD если есть: prd/prd.md",
+			"Выбери ОДНУ задачу со статусом pending и наивысшим приоритетом",
+			"Проверь, что все dependencies этой задачи имеют статус done",
+			"Подтяни скил mol (/mol) перед началом работы с $mol кодом"
+		],
+		"during_work": [
+			"Работай только над выбранной задачей",
+			"Делай коммиты после каждого логического изменения",
+			"Не трогай код, не связанный с текущей задачей",
+			"Стили ОБЯЗАТЕЛЬНО через .view.css.ts ($mol_style_define), raw .view.css только для pseudo-elements/hover/attr",
+			"Используй $mol_mem для кешируемых свойств, $mol_action для сайд-эффектов",
+			"Весь код создаётся в bog/WikiLive/ (namespace $bog_WikiLive_*)",
+			"Точка входа: bog/WikiLive/app/index.html"
+		],
+		"before_finish": [
+			"Выполни ВСЕ test_steps из задачи",
+			"Проверь билд: cd /Users/cmyser/code/mam && npx mam bog/WikiLive/app",
+			"Проверь аудит: cat bog/WikiLive/app/-/web.audit.js",
+			"Меняй status на done ТОЛЬКО после успешного прохождения всех тестов",
+			"Напиши summary в progress.md",
+			"ЗАПРЕЩЕНО удалять или редактировать задачи — только менять status"
+		]
+	},
+	"tasks": []
+}
