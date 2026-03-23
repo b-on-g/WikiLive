@@ -1,0 +1,26 @@
+$bog_WikiLive_tree_node $mol_view
+	store $bog_WikiLive_store
+	page_link \
+	level 0
+	page_selected? \
+	expanded? false
+	sub /
+		<= Row $mol_view
+			sub /
+				<= Expand $mol_check_icon
+					checked? <=> expanded?
+					Icon <= Expand_icon $mol_icon_chevron_right
+				<= Title $mol_button_minor
+					title <= title \
+					click? <=> select? null
+		<= Children $mol_list
+			rows <= child_nodes /
+	Child_node*0 $bog_WikiLive_tree_node
+		page_link <= child_page_link* \
+		store <= store
+		level <= child_level 1
+		page_selected? <=> page_selected?
+	attr *
+		^
+		bog_wikilive_tree_node_level <= level
+		bog_wikilive_tree_node_active <= active false

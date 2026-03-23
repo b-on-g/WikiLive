@@ -1,2 +1,2 @@
-include \/bog/WikiLive/button
-include \/bog/WikiLive/logo
+include \/mol/offline/install
+deploy \/bog/WikiLive/assets

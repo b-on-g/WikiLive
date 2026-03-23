@@ -1,0 +1,36 @@
+$bog_WikiLive_page $mol_page
+	store $bog_WikiLive_store
+	page_link \
+	title <= page_title \
+	head /
+		<= Breadcrumb $bog_ui_breadcrumb
+			crumbs <= breadcrumb_ids /
+			crumb_title* <= breadcrumb_title* \
+			crumb_uri* <= breadcrumb_uri* \
+			last_title <= page_title
+		<= Title_edit $mol_string_button
+			value? <=> page_title? \Без названия
+			hint \Название страницы
+		<= Tools
+	tools /
+		<= Edit_toggle $mol_check_icon
+			checked? <=> editing? false
+			Icon <= Edit_icon $mol_icon_pencil
+		<= Add_child $mol_button_minor
+			hint \Добавить дочернюю страницу
+			click? <=> child_add? null
+			sub /
+				<= Add_icon $mol_icon_plus
+		<= Delete $mol_button_minor
+			hint \Удалить страницу
+			click? <=> page_delete? null
+			sub /
+				<= Delete_icon $mol_icon_delete
+	body /
+		<= Body $mol_view
+			sub <= body_content /
+	View $mol_text
+		text <= content \
+	Editor $mol_textarea
+		value? <=> content? \
+		hint \Пишите в Markdown...

@@ -1,28 +1,38 @@
-$bog_WikiLive_app $mol_book2_catalog
-	menu_title \WikiLive
-	Menu_logo <= Logo2 $bog_WikiLive_logo
-	param \page
+$bog_WikiLive_app $mol_book2
 	plugins /
 		<= Theme $mol_theme_auto
-	menu_tools /
-		<= Sources $mol_link_source
-			uri \https://github.com/b-on-g/WikiLive
-		<= Lighter $mol_lights_toggle
-	menu_foot /
-		<= Logout_button $bog_WikiLive_button
-			title \Выйти
-	Spread_default 
-		<= Docs $mol_page 
-			body / 
-				<= Docs_uri $mol_link 
-					title \Демонстрации
-					uri \http://localhost:9080/bog/WikiLive/docs/-/test.html
-	spreads *
-		hello <= Page1 $mol_page
-			title \Привет $mol!
-			body /
-				<= Hello $mol_text text \
-					\# Привет https://mol.hyoo.ru/#!section=docs/=6leyma_5ks814]
-					\Инструкция по шаблону читай на https://github.com/b-on-g/WikiLive
-			
-				
+	pages /
+		<= Nav $bog_ui_sidebar
+			mode? <=> sidebar_mode? \dock
+			Header <= Nav_header $mol_view
+				sub /
+					<= Logo $bog_WikiLive_logo
+			items /
+				<= Home_nav $bog_ui_sidebar_item
+					Icon <= Home_icon $mol_icon_home
+					label \Главная
+					active <= home_active false
+					click? <=> nav_home? null
+			Footer <= Nav_footer $mol_view
+				sub /
+					<= Add_page $mol_button_minor
+						title \+ Новая страница
+						click? <=> page_create_root? null
+					<= Lighter $mol_lights_toggle
+		<= Content $mol_view
+			sub <= content_pages /
+	Tree $bog_WikiLive_tree
+		store <= store
+		page_selected? <=> page_selected? \
+	Page $bog_WikiLive_page
+		store <= store
+		page_link <= page_selected? \
+	Welcome $mol_page
+		title \WikiLive
+		body /
+			<= Welcome_text $mol_text
+				text \
+					\# Добро пожаловать в WikiLive
+					\
+					\Выберите страницу в дереве слева или создайте новую.
+	store $bog_WikiLive_store

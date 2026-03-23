@@ -1,0 +1,8 @@
+$bog_WikiLive_tree $mol_list
+	store $bog_WikiLive_store
+	rows <= root_nodes /
+	Root_node*0 $bog_WikiLive_tree_node
+		page_link <= root_page_link* \
+		store <= store
+		level 0
+		page_selected? <=> page_selected? \
