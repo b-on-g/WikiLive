@@ -1,6 +1,6 @@
 $bog_wikilive_app $mol_book2
 	plugins /
-		<= Theme $mol_theme_auto
+		<= Theme $bog_theme_auto
 	pages /
 		<= Nav $bog_ui_sidebar
 			mode? <=> sidebar_mode? \dock
@@ -19,7 +19,8 @@ $bog_wikilive_app $mol_book2
 					<= Add_page $mol_button_minor
 						title \+ Новая страница
 						click? <=> page_create_root? null
-					<= Lighter $mol_lights_toggle
+					<= Lighter $bog_theme_toggle
+						theme_auto <= Theme
 		<= Content $mol_view
 			sub <= content_pages /
 	Tree $bog_wikilive_tree
