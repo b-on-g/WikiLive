@@ -1,0 +1,16 @@
+$bog_wikilive_search $mol_page
+	store $bog_wikilive_store
+	page_selected? \
+	title \Поиск
+	tools /
+		<= Search $mol_search
+			query? <=> query? \
+	body /
+		<= Results $mol_list
+			rows <= result_rows /
+		<= Empty $mol_view
+			sub /
+				<= empty_text \Ничего не найдено
+	Result_row* $mol_button_minor
+		title <= result_title* \
+		click? <=> result_click*? null

@@ -1,0 +1,52 @@
+$bog_wikilive_profile_page $mol_page
+	store $bog_wikilive_store
+	title \Профиль
+	page_selected? \
+	body /
+		<= Card $mol_view
+			sub /
+				<= Avatar $mol_avatar
+					id <= player_id \
+				<= Name_edit $mol_string_button
+					value? <=> profile_name? \Аноним
+					hint \Ваше имя
+				<= Stats $mol_view
+					sub /
+						<= Stat_created $mol_view
+							sub /
+								\Создано страниц:
+								<= stat_created \0
+						<= Stat_edited $mol_view
+							sub /
+								\Отредактировано:
+								<= stat_edited \0
+						<= Stat_favorites $mol_view
+							sub /
+								\В избранном:
+								<= stat_favorites \0
+		<= Favorites_section $mol_view
+			sub /
+				<= Favorites_title $mol_view
+					sub /
+						\Избранное
+				<= Favorites_list $mol_list
+					rows <= favorite_rows /
+				<= Favorites_empty $mol_view
+					sub /
+						<= favorites_empty_text \Нет избранных страниц
+		<= Recent_section $mol_view
+			sub /
+				<= Recent_title $mol_view
+					sub /
+						\Недавние
+				<= Recent_list $mol_list
+					rows <= recent_rows /
+				<= Recent_empty $mol_view
+					sub /
+						<= recent_empty_text \Нет недавних страниц
+	Fav_row* $mol_button_minor
+		title <= fav_row_title* \
+		click? <=> fav_row_click*? null
+	Recent_row* $mol_button_minor
+		title <= recent_row_title* \
+		click? <=> recent_row_click*? null

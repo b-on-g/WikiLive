@@ -1,0 +1,27 @@
+$bog_wikilive_table_view $mol_view
+	table $bog_wikilive_table
+	sub /
+		<= Header $mol_view
+			sub /
+				<= Title_edit $mol_string_button
+					value? <=> table_title? \Таблица
+					hint \Название таблицы
+				<= Tools $mol_view
+					sub /
+						<= Add_col $mol_button_minor
+							title \+ Столбец
+							click? <=> col_add_click? null
+						<= Add_row $mol_button_minor
+							title \+ Строка
+							click? <=> row_add_click? null
+		<= Grid $mol_grid
+			col_ids <= col_ids /
+			row_ids <= row_ids /
+			head_cells <= head_cells /
+			cells!row <= cells!row /
+	Col_head* $mol_view
+		dom_name \th
+		sub /
+			<= col_title* \
+	Cell!id $mol_string
+		value? <=> cell_val!id? \

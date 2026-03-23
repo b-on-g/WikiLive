@@ -6,6 +6,10 @@ namespace $.$$ {
 			return this.store().doc_by_link( this.page_link() )
 		}
 
+		land() {
+			return this.store().glob().Land( new $giper_baza_link( this.page_link() ) )
+		}
+
 		@ $mol_mem
 		page_title( next?: string ) {
 			const doc = this.doc()
@@ -25,9 +29,104 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem
+		face_entries(): [ string, $giper_baza_face ][] {
+			const land = this.land()
+			return [ ...land.faces.entries() ]
+				.sort( ( a, b ) => b[1].time - a[1].time )
+		}
+
+		@ $mol_mem
+		editor_peers(): string[] {
+			return this.face_entries().map( ( [ peer ] ) => peer )
+		}
+
+		@ $mol_mem
+		editor_avatars() {
+			return this.editor_peers().slice( 0, 5 ).map(
+				( _, i ) => this.Editor_avatar( i )
+			)
+		}
+
+		editor_id( index: number ) {
+			return this.editor_peers()[ index ] ?? ''
+		}
+
+		@ $mol_mem
+		history_content() {
+			return [
+				this.History_header(),
+				this.History_list(),
+			]
+		}
+
+		@ $mol_mem
+		history_items() {
+			return this.face_entries().map( ( _, i ) => this.History_entry( i ) )
+		}
+
+		history_entry_peer( index: number ) {
+			const peer = this.face_entries()[ index ]?.[ 0 ] ?? ''
+			return peer.slice( 0, 12 ) + '…'
+		}
+
+		history_entry_time( index: number ) {
+			const face = this.face_entries()[ index ]?.[ 1 ]
+			if( !face || !face.time ) return ''
+			const date = new Date( face.time * 1000 )
+			return date.toLocaleString( 'ru-RU' )
+		}
+
+		history_entry_changes( index: number ) {
+			const face = this.face_entries()[ index ]?.[ 1 ]
+			if( !face ) return ''
+			return face.summ + ' ед.'
+		}
+
+		@ $mol_mem
+		is_favorite( next?: boolean ) {
+			if( next !== undefined ) {
+				this.store().favorite_toggle( this.page_link() )
+			}
+			return this.store().is_favorite( this.page_link() )
+		}
+
+		@ $mol_action
+		history_toggle( next?: any ) {
+			if( next === undefined ) return null
+			this.history_showed( !this.history_showed() )
+			return null
+		}
+
+		@ $mol_action
+		history_close( next?: any ) {
+			if( next === undefined ) return null
+			this.history_showed( false )
+			return null
+		}
+
+		@ $mol_mem
+		table_views() {
+			return this.doc().table_list().map(
+				( _, i ) => this.Table_view( i )
+			)
+		}
+
+		table_entity( index: number ): $bog_wikilive_table {
+			return this.doc().table_list()[ index ]
+		}
+
+		@ $mol_mem
 		body_content() {
-			if( this.editing() ) return [ this.Editor() ]
-			return [ this.View() ]
+			const text_view = this.editing() ? [ this.Editor() ] : [ this.View() ]
+			return [ ...text_view, ...this.table_views() ]
+		}
+
+		@ $mol_mem
+		sub() {
+			return [
+				...super.sub(),
+				this.History(),
+			]
 		}
 
 		@ $mol_mem
@@ -63,9 +162,16 @@ namespace $.$$ {
 		}
 
 		@ $mol_action
+		table_add( next?: any ) {
+			if( next === undefined ) return null
+			this.doc().table_add()
+			return null
+		}
+
+		@ $mol_action
 		child_add( next?: any ) {
 			if( next === undefined ) return null
-			const link_str = this.store().page_create( 'Новая страница', this.page_link() )
+			this.store().page_create( 'Новая страница', this.page_link() )
 			return null
 		}
 

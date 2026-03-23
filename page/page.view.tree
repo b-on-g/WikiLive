@@ -11,11 +11,26 @@ $bog_wikilive_page $mol_page
 		<= Title_edit $mol_string_button
 			value? <=> page_title? \Без названия
 			hint \Название страницы
+		<= Editors $mol_view
+			sub <= editor_avatars /
 		<= Tools
 	tools /
+		<= Fav_toggle $mol_check_icon
+			checked? <=> is_favorite? false
+			Icon <= Fav_icon $mol_icon_star
 		<= Edit_toggle $mol_check_icon
 			checked? <=> editing? false
 			Icon <= Edit_icon $mol_icon_pencil
+		<= Add_table $mol_button_minor
+			hint \Добавить таблицу
+			click? <=> table_add? null
+			sub /
+				<= Table_icon $mol_icon_table
+		<= History_toggle $mol_button_minor
+			hint \История изменений
+			click? <=> history_toggle? null
+			sub /
+				<= History_icon $mol_icon_history
 		<= Add_child $mol_button_minor
 			hint \Добавить дочернюю страницу
 			click? <=> child_add? null
@@ -32,3 +47,31 @@ $bog_wikilive_page $mol_page
 	Editor $mol_textarea
 		value? <=> content? \
 		hint \Пишите в Markdown...
+	Table_view*0 $bog_wikilive_table_view
+		table <= table_entity* $bog_wikilive_table
+	Editor_avatar* $mol_avatar
+		id <= editor_id* \
+	History $bog_ui_sheet
+		side \right
+		showed? <=> history_showed? false
+		content <= history_content /
+	History_header $mol_view
+		sub /
+			<= History_title $mol_view
+				sub /
+					\История изменений
+			<= History_close $mol_button_minor
+				click? <=> history_close? null
+				sub /
+					<= History_close_icon $mol_icon_close
+	History_list $mol_list
+		rows <= history_items /
+	History_entry*0 $mol_view
+		sub /
+			<= History_entry_avatar* $mol_avatar
+				id <= history_entry_peer* \
+			<= History_entry_info* $mol_view
+				sub /
+					<= history_entry_peer* \
+					<= history_entry_time* \
+					<= history_entry_changes* \
