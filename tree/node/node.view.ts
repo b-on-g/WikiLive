@@ -1,32 +1,51 @@
 namespace $.$$ {
 
-	export class $bog_WikiLive_tree_node extends $.$bog_WikiLive_tree_node {
+	export class $bog_wikilive_tree_node extends $.$bog_wikilive_tree_node {
 
-		// TODO: получить page entity из store по page_link
-		// page(): $bog_WikiLive_page { ... }
+		doc() {
+			return this.store().doc_by_link( this.page_link() )
+		}
 
-		// TODO: title из page.Title()?.val() ?? 'Без названия'
-		// title() { ... }
+		title() {
+			return this.doc().title() || 'Без названия'
+		}
 
-		// TODO: active — текущая страница выбрана
-		// active() { return this.page_link() === this.page_selected() }
+		active() {
+			return this.page_link() === this.page_selected()
+		}
 
-		// TODO: select — установить page_selected
-		// @$mol_action
-		// select() { this.page_selected( this.page_link() ) }
+		@ $mol_action
+		select( next?: any ) {
+			if( next !== undefined ) this.page_selected( this.page_link() )
+			return null
+		}
 
-		// TODO: child_nodes — дочерние узлы из page.Children()
-		// @$mol_mem
-		// child_nodes() { ... }
+		child_level() {
+			return this.level() + 1
+		}
 
-		// TODO: child_page_link — link дочернего узла по индексу
-		// child_page_link( index: number ): string { ... }
+		@ $mol_mem
+		child_link_strs() {
+			return this.store().child_link_strs( this.page_link() )
+		}
 
-		// TODO: child_level — level + 1
-		// child_level() { return this.level() + 1 }
+		@ $mol_mem
+		child_nodes() {
+			return this.child_link_strs().map(
+				( _, index ) => this.Child_node( index )
+			)
+		}
 
-		// TODO: sub — показывать Children только если expanded
-		// sub() { ... }
+		child_page_link( index: number ): string {
+			return this.child_link_strs()[ index ] ?? ''
+		}
+
+		sub() {
+			const has_children = this.child_link_strs().length > 0
+			if( !has_children ) return [ this.Row() ]
+			if( !this.expanded() ) return [ this.Row() ]
+			return [ this.Row(), this.Children() ]
+		}
 
 	}
 

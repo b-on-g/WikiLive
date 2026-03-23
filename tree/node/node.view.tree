@@ -1,5 +1,5 @@
-$bog_WikiLive_tree_node $mol_view
-	store $bog_WikiLive_store
+$bog_wikilive_tree_node $mol_view
+	store $bog_wikilive_store
 	page_link \
 	level 0
 	page_selected? \
@@ -15,7 +15,7 @@ $bog_WikiLive_tree_node $mol_view
 					click? <=> select? null
 		<= Children $mol_list
 			rows <= child_nodes /
-	Child_node*0 $bog_WikiLive_tree_node
+	Child_node*0 $bog_wikilive_tree_node
 		page_link <= child_page_link* \
 		store <= store
 		level <= child_level 1

@@ -1,7 +1,7 @@
-$bog_WikiLive_page $mol_page
-	store $bog_WikiLive_store
+$bog_wikilive_page $mol_page
+	store $bog_wikilive_store
 	page_link \
-	title <= page_title \
+	title <= page_title \Без названия
 	head /
 		<= Breadcrumb $bog_ui_breadcrumb
 			crumbs <= breadcrumb_ids /
@@ -26,9 +26,7 @@ $bog_WikiLive_page $mol_page
 			click? <=> page_delete? null
 			sub /
 				<= Delete_icon $mol_icon_delete
-	body /
-		<= Body $mol_view
-			sub <= body_content /
+	body <= body_content /
 	View $mol_text
 		text <= content \
 	Editor $mol_textarea

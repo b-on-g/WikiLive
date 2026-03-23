@@ -1,6 +1,6 @@
 namespace $ {
 
-	$mol_style_define( $bog_WikiLive_page, {
+	$mol_style_define( $bog_wikilive_page, {
 
 		flex: {
 			grow: 1,
@@ -13,25 +13,11 @@ namespace $ {
 			},
 		},
 
-		Body: {
-			flex: {
-				grow: 1,
-			},
-			padding: {
-				top: '1rem',
-				bottom: '1rem',
-				left: '1.5rem',
-				right: '1.5rem',
-			},
-		},
-
 		Editor: {
 			flex: {
 				grow: 1,
 			},
-			min: {
-				height: '20rem',
-			},
+			minHeight: '20rem',
 		},
 
 		View: {

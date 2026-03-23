@@ -1,64 +1,119 @@
 namespace $ {
 
-	/**
-	 * Вики-страница — entity в отдельном Land.
-	 *
-	 * Title наследуется от $giper_baza_entity.
-	 * Content — CRDT-текст ($giper_baza_text) для коллаборативного редактирования.
-	 * Parent — ссылка на родительскую страницу (для дерева).
-	 * Children — список ссылок на дочерние страницы.
-	 */
-	export class $bog_WikiLive_page extends $giper_baza_entity.with({
+	/** Вики-документ — entity в отдельном Land. */
+	export class $bog_wikilive_doc extends $giper_baza_entity.with({
 		Content: $giper_baza_text,
 		Parent: $giper_baza_atom_link,
 		Children: $giper_baza_list_link,
 	}) {
 
-		// TODO: метод для получения markdown-текста из Content
-		// content_text( next?: string ): string { ... }
-
-		// TODO: метод для добавления дочерней страницы
-		// child_add( child_link: $giper_baza_link ): void { ... }
-
-		// TODO: метод для удаления дочерней страницы
-		// child_remove( child_link: $giper_baza_link ): void { ... }
+		content_text( next?: string ): string {
+			const content = this.Content()
+			if( !content ) return ''
+			if( next !== undefined ) content.text( next )
+			return content.text()
+		}
 
 	}
 
-	/**
-	 * Реестр всех страниц — живёт в shared Land.
-	 * Хранит список ссылок на Land каждой страницы.
-	 *
-	 * Паттерн: один инстанс на приложение,
-	 * registry land создаётся один раз и шарится через .baza файл.
-	 */
-	export class $bog_WikiLive_store extends $mol_object {
+	/** Реестр страниц в home land. */
+	export class $bog_wikilive_registry extends $giper_baza_entity.with({
+		Pages: $giper_baza_list_link,
+	}) {}
 
-		// TODO: glob — глобальная Giper Baza БД
-		// НЕ ставить @$mol_mem! Кэш внутри $giper_baza_glob.
-		// glob(): $giper_baza_glob { ... }
+	/** Хранилище вики — glob, registry, CRUD. */
+	export class $bog_wikilive_store extends $mol_object {
 
-		// TODO: registry land — shared land со списком всех страниц
-		// НЕ ставить @$mol_mem! Кэш внутри glob.Land().
-		// registry_land(): $giper_baza_land { ... }
+		// Без @$mol_mem — кэш внутри $giper_baza_glob
+		glob() {
+			return this.$.$giper_baza_glob
+		}
 
-		// TODO: registry — список ссылок на страницы
-		// registry(): $giper_baza_list_link { ... }
+		// Без @$mol_mem — кэш внутри glob
+		home_land() {
+			return this.glob().home().land()
+		}
 
-		// TODO: page_create — создать новую страницу (новый Land)
-		// @$mol_action
-		// page_create( title: string, parent?: $giper_baza_link ): $giper_baza_link { ... }
+		// Без @$mol_mem — кэш внутри land.Data()
+		registry() {
+			return this.home_land().Data( $bog_wikilive_registry ) as $bog_wikilive_registry
+		}
 
-		// TODO: pages — все страницы (массив можно @$mol_mem)
-		// @$mol_mem
-		// pages(): $bog_WikiLive_page[] { ... }
+		@ $mol_mem
+		page_links(): readonly $giper_baza_link[] {
+			const items = this.registry().Pages()?.items() ?? []
+			return items.filter( ( link ): link is $giper_baza_link => link !== null )
+		}
 
-		// TODO: page_by_link — получить страницу по ссылке на Land
-		// page_by_link( link: $giper_baza_link ): $bog_WikiLive_page { ... }
+		// Получить документ по строке ссылки на land
+		doc_by_link( link_str: string ): $bog_wikilive_doc {
+			const land = this.glob().Land( new $giper_baza_link( link_str ) )
+			return land.Data( $bog_wikilive_doc ) as $bog_wikilive_doc
+		}
 
-		// TODO: root_pages — страницы без родителя (корни дерева)
-		// @$mol_mem
-		// root_pages(): $bog_WikiLive_page[] { ... }
+		// Строки ссылок для всех страниц
+		@ $mol_mem
+		page_link_strs(): string[] {
+			return this.page_links().map( link => link.str )
+		}
+
+		// Строки ссылок корневых страниц (без parent)
+		@ $mol_mem
+		root_link_strs(): string[] {
+			return this.page_link_strs().filter( link_str => {
+				const doc = this.doc_by_link( link_str )
+				return !doc.Parent()?.val()
+			} )
+		}
+
+		// Строки ссылок дочерних страниц
+		child_link_strs( parent_link_str: string ): string[] {
+			const doc = this.doc_by_link( parent_link_str )
+			const children = doc.Children()?.items() ?? []
+			return children.filter( ( link ): link is $giper_baza_link => link !== null ).map( link => link.str )
+		}
+
+		@ $mol_action
+		page_create( title: string, parent_link_str?: string ): string {
+
+			const land = this.glob().land_grab( [
+				[ null, $giper_baza_rank_read ],
+			] )
+
+			const doc = land.Data( $bog_wikilive_doc ) as $bog_wikilive_doc
+			doc.Title( 'auto' )!.val( title )
+			doc.Content( 'auto' )!.text( '' )
+
+			const land_link = land.link()
+
+			if( parent_link_str ) {
+				doc.Parent( 'auto' )!.val( new $giper_baza_link( parent_link_str ) )
+				const parent_doc = this.doc_by_link( parent_link_str )
+				parent_doc.Children( 'auto' )!.add( land_link )
+			}
+
+			this.registry().Pages( 'auto' )!.add( land_link )
+
+			return land_link.str
+		}
+
+		@ $mol_action
+		page_delete( link_str: string ) {
+
+			const doc = this.doc_by_link( link_str )
+			const land_link = new $giper_baza_link( link_str )
+
+			// Убрать из parent.Children
+			const parent_link = doc.Parent()?.val()
+			if( parent_link ) {
+				const parent_doc = this.doc_by_link( parent_link.str )
+				parent_doc.Children()?.cut( land_link )
+			}
+
+			// Убрать из registry
+			this.registry().Pages()?.cut( land_link )
+
+		}
 
 	}
 

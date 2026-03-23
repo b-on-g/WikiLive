@@ -1,7 +1,7 @@
-$bog_WikiLive_tree $mol_list
-	store $bog_WikiLive_store
+$bog_wikilive_tree $mol_list
+	store $bog_wikilive_store
 	rows <= root_nodes /
-	Root_node*0 $bog_WikiLive_tree_node
+	Root_node*0 $bog_wikilive_tree_node
 		page_link <= root_page_link* \
 		store <= store
 		level 0

@@ -1,6 +1,6 @@
-$bog_WikiLive_logo_demo $mol_example_small
+$bog_wikilive_logo_demo $mol_example_small
 	sub /
-		<= Logo $bog_WikiLive_logo
+		<= Logo $bog_wikilive_logo
 	tags /
 		\logo
 	aspects /

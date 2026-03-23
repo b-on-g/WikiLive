@@ -1,4 +1,4 @@
-$bog_WikiLive_app $mol_book2
+$bog_wikilive_app $mol_book2
 	plugins /
 		<= Theme $mol_theme_auto
 	pages /
@@ -6,13 +6,14 @@ $bog_WikiLive_app $mol_book2
 			mode? <=> sidebar_mode? \dock
 			Header <= Nav_header $mol_view
 				sub /
-					<= Logo $bog_WikiLive_logo
+					<= Logo $bog_wikilive_logo
 			items /
 				<= Home_nav $bog_ui_sidebar_item
 					Icon <= Home_icon $mol_icon_home
 					label \Главная
 					active <= home_active false
 					click? <=> nav_home? null
+				<= Tree
 			Footer <= Nav_footer $mol_view
 				sub /
 					<= Add_page $mol_button_minor
@@ -21,10 +22,10 @@ $bog_WikiLive_app $mol_book2
 					<= Lighter $mol_lights_toggle
 		<= Content $mol_view
 			sub <= content_pages /
-	Tree $bog_WikiLive_tree
+	Tree $bog_wikilive_tree
 		store <= store
 		page_selected? <=> page_selected? \
-	Page $bog_WikiLive_page
+	Page $bog_wikilive_page
 		store <= store
 		page_link <= page_selected? \
 	Welcome $mol_page
@@ -35,4 +36,4 @@ $bog_WikiLive_app $mol_book2
 					\# Добро пожаловать в WikiLive
 					\
 					\Выберите страницу в дереве слева или создайте новую.
-	store $bog_WikiLive_store
+	store $bog_wikilive_store

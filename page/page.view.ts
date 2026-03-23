@@ -1,40 +1,80 @@
 namespace $.$$ {
 
-	export class $bog_WikiLive_page extends $.$bog_WikiLive_page {
+	export class $bog_wikilive_page extends $.$bog_wikilive_page {
 
-		// TODO: получить page entity из store по page_link
-		// page(): $bog_WikiLive_page_entity { ... }
+		doc() {
+			return this.store().doc_by_link( this.page_link() )
+		}
 
-		// TODO: page_title — двусторонний биндинг к page.Title()?.val()
-		// @$mol_mem
-		// page_title( next?: string ) { ... }
+		@ $mol_mem
+		page_title( next?: string ) {
+			const doc = this.doc()
+			if( next !== undefined ) {
+				doc.Title( 'auto' )!.val( next )
+			}
+			return doc.title() || 'Без названия'
+		}
 
-		// TODO: content — двусторонний биндинг к page.Content()?.text()
-		// Это $giper_baza_text — CRDT, автомёрдж
-		// @$mol_mem
-		// content( next?: string ) { ... }
+		@ $mol_mem
+		content( next?: string ) {
+			const doc = this.doc()
+			if( next !== undefined ) {
+				doc.Content( 'auto' )!.text( next )
+			}
+			return doc.Content()?.text() ?? ''
+		}
 
-		// TODO: body_content — если editing() → [Editor], иначе → [View]
-		// @$mol_mem
-		// body_content() { ... }
+		@ $mol_mem
+		body_content() {
+			if( this.editing() ) return [ this.Editor() ]
+			return [ this.View() ]
+		}
 
-		// TODO: breadcrumb_ids — собрать цепочку parent→parent→...→root
-		// @$mol_mem
-		// breadcrumb_ids() { ... }
+		@ $mol_mem
+		breadcrumb_chain(): string[] {
+			const chain: string[] = []
+			let current_link = this.page_link()
 
-		// TODO: breadcrumb_title — title родительской страницы по индексу
-		// breadcrumb_title( id: string ) { ... }
+			for( let i = 0; i < 20; i++ ) {
+				const doc = this.store().doc_by_link( current_link )
+				const parent_link = doc.Parent()?.val()
+				if( !parent_link ) break
+				chain.unshift( parent_link.str )
+				current_link = parent_link.str
+			}
 
-		// TODO: breadcrumb_uri — URI для навигации к родителю
-		// breadcrumb_uri( id: string ) { ... }
+			return chain
+		}
 
-		// TODO: child_add — создать дочернюю страницу через store.page_create()
-		// @$mol_action
-		// child_add() { ... }
+		@ $mol_mem
+		breadcrumb_ids() {
+			return this.breadcrumb_chain().map( ( _, i ) => i )
+		}
 
-		// TODO: page_delete — удалить страницу
-		// @$mol_action
-		// page_delete() { ... }
+		breadcrumb_title( id: number ) {
+			const link_str = this.breadcrumb_chain()[ id ]
+			if( !link_str ) return ''
+			return this.store().doc_by_link( link_str ).title() || 'Без названия'
+		}
+
+		breadcrumb_uri( id: number ) {
+			const link_str = this.breadcrumb_chain()[ id ]
+			return link_str ? '#!page=' + encodeURIComponent( link_str ) : ''
+		}
+
+		@ $mol_action
+		child_add( next?: any ) {
+			if( next === undefined ) return null
+			const link_str = this.store().page_create( 'Новая страница', this.page_link() )
+			return null
+		}
+
+		@ $mol_action
+		page_delete( next?: any ) {
+			if( next === undefined ) return null
+			this.store().page_delete( this.page_link() )
+			return null
+		}
 
 	}
 

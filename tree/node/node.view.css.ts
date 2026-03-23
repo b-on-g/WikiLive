@@ -1,6 +1,6 @@
 namespace $ {
 
-	$mol_style_define( $bog_WikiLive_tree_node, {
+	$mol_style_define( $bog_wikilive_tree_node, {
 
 		flex: {
 			direction: 'column',

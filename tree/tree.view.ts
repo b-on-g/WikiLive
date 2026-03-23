@@ -1,14 +1,17 @@
 namespace $.$$ {
 
-	export class $bog_WikiLive_tree extends $.$bog_WikiLive_tree {
+	export class $bog_wikilive_tree extends $.$bog_wikilive_tree {
 
-		// TODO: получить корневые страницы из store.root_pages()
-		// и вернуть массив Root_node для каждой
-		// @$mol_mem
-		// root_nodes() { ... }
+		@ $mol_mem
+		root_nodes() {
+			return this.store().root_link_strs().map(
+				( _, index ) => this.Root_node( index )
+			)
+		}
 
-		// TODO: для каждого root node вернуть его link
-		// root_page_link( index: number ): string { ... }
+		root_page_link( index: number ): string {
+			return this.store().root_link_strs()[ index ] ?? ''
+		}
 
 	}
 
