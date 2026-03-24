@@ -42,9 +42,19 @@ namespace $.$$ {
 
 		sub() {
 			const has_children = this.child_link_strs().length > 0
-			if( !has_children ) return [ this.Row() ]
-			if( !this.expanded() ) return [ this.Row() ]
-			return [ this.Row(), this.Children() ]
+			if( !has_children ) return [ this.Drop() ]
+			if( !this.expanded() ) return [ this.Drop() ]
+			return [ this.Drop(), this.Children() ]
+		}
+
+		@ $mol_action
+		drop_receive( transfer?: DataTransfer ) {
+			if( !transfer ) return null
+			const dragged_link = transfer.getData( 'text/plain' )
+			if( !dragged_link || dragged_link === this.page_link() ) return null
+
+			this.store().page_move( dragged_link, this.page_link() )
+			return null
 		}
 
 	}

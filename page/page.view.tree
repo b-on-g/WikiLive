@@ -36,6 +36,10 @@ $bog_wikilive_page $mol_page
 			click? <=> child_add? null
 			sub /
 				<= Add_icon $mol_icon_plus
+		<= Export $mol_button_download
+			hint \Скачать Markdown
+			file_name <= export_filename \page.md
+			uri <= export_uri \
 		<= Delete $mol_button_minor
 			hint \Удалить страницу
 			click? <=> page_delete? null

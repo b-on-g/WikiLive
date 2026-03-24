@@ -26,9 +26,24 @@ $bog_wikilive_app $mol_book2
 					click? <=> nav_profile? null
 			Footer <= Nav_footer $mol_view
 				sub /
-					<= Add_page $mol_button_minor
-						title \+ Новая страница
-						click? <=> page_create_root? null
+					<= Add_menu $mol_pop
+						showed? <=> add_menu_showed? false
+						Anchor <= Add_page $mol_button_minor
+							title \+ Страница
+							click? <=> add_menu_toggle? null
+						bubble_content /
+							<= Add_blank $mol_button_minor
+								title \Пустая
+								click? <=> page_create_blank? null
+							<= Add_meeting $mol_button_minor
+								title \Протокол встречи
+								click? <=> page_create_meeting? null
+							<= Add_spec $mol_button_minor
+								title \Спецификация
+								click? <=> page_create_spec? null
+							<= Add_guide $mol_button_minor
+								title \Руководство
+								click? <=> page_create_guide? null
 					<= Lighter $mol_lights_toggle
 		<= Content $mol_view
 			sub <= content_pages /

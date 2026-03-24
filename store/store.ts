@@ -192,16 +192,34 @@ namespace $ {
 			return children.filter( ( link ): link is $giper_baza_link => link !== null ).map( link => link.str )
 		}
 
+		static templates: Record< string, { title: string, content: string } > = {
+			blank: { title: 'Новая страница', content: '' },
+			meeting: {
+				title: 'Протокол встречи',
+				content: '# Протокол встречи\n\n**Дата:** \n**Участники:** \n\n## Повестка\n\n1. \n\n## Решения\n\n- \n\n## Действия\n\n| Задача | Ответственный | Срок |\n|--------|---------------|------|\n|        |               |      |\n',
+			},
+			spec: {
+				title: 'Спецификация',
+				content: '# Название\n\n## Описание\n\n## Требования\n\n### Функциональные\n\n- \n\n### Нефункциональные\n\n- \n\n## Архитектура\n\n## API\n\n## Открытые вопросы\n\n- \n',
+			},
+			guide: {
+				title: 'Руководство',
+				content: '# Руководство\n\n## Введение\n\n## Быстрый старт\n\n## Основные понятия\n\n## Примеры\n\n## FAQ\n\n## Ссылки\n\n- \n',
+			},
+		}
+
 		@ $mol_action
-		page_create( title: string, parent_link_str?: string ): string {
+		page_create( title: string, parent_link_str?: string, template = 'blank' ): string {
+
+			const tmpl = $bog_wikilive_store.templates[ template ] ?? $bog_wikilive_store.templates.blank
 
 			const land = this.glob().land_grab( [
 				[ null, $giper_baza_rank_read ],
 			] )
 
 			const doc = land.Data( $bog_wikilive_doc ) as $bog_wikilive_doc
-			doc.Title( 'auto' )!.val( title )
-			doc.Content( 'auto' )!.text( '' )
+			doc.Title( 'auto' )!.val( title || tmpl.title )
+			doc.Content( 'auto' )!.text( tmpl.content )
 
 			const land_link = land.link()
 
@@ -214,6 +232,28 @@ namespace $ {
 			this.registry().Pages( 'auto' )!.add( land_link )
 
 			return land_link.str
+		}
+
+		@ $mol_action
+		page_move( child_link_str: string, new_parent_link_str: string ) {
+
+			const child_doc = this.doc_by_link( child_link_str )
+			const child_link = new $giper_baza_link( child_link_str )
+
+			// Убрать из старого parent
+			const old_parent = child_doc.Parent()?.val()
+			if( old_parent ) {
+				const old_parent_doc = this.doc_by_link( old_parent.str )
+				old_parent_doc.Children()?.cut( child_link )
+			}
+
+			// Установить новый parent
+			child_doc.Parent( 'auto' )!.val( new $giper_baza_link( new_parent_link_str ) )
+
+			// Добавить в children нового parent
+			const new_parent_doc = this.doc_by_link( new_parent_link_str )
+			new_parent_doc.Children( 'auto' )!.add( child_link )
+
 		}
 
 		@ $mol_action

@@ -161,6 +161,18 @@ namespace $.$$ {
 			return link_str ? '#!page=' + encodeURIComponent( link_str ) : ''
 		}
 
+		@ $mol_mem
+		export_filename() {
+			const title = this.page_title().replace( /[^\w\u0400-\u04FF ]/g, '' ).trim() || 'page'
+			return title + '.md'
+		}
+
+		@ $mol_mem
+		export_uri() {
+			const md = '# ' + this.page_title() + '\n\n' + this.content()
+			return 'data:text/markdown;charset=utf-8,' + encodeURIComponent( md )
+		}
+
 		@ $mol_action
 		table_add( next?: any ) {
 			if( next === undefined ) return null

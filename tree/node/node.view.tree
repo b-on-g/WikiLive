@@ -5,14 +5,21 @@ $bog_wikilive_tree_node $mol_view
 	page_selected? \
 	expanded? false
 	sub /
-		<= Row $mol_view
-			sub /
-				<= Expand $mol_check_icon
-					checked? <=> expanded?
-					Icon <= Expand_icon $mol_icon_chevron_right
-				<= Title $mol_button_minor
-					title <= title \
-					click? <=> select? null
+		<= Drop $mol_drop
+			Sub <= Row $mol_view
+				sub /
+					<= Expand $mol_check_icon
+						checked? <=> expanded?
+						Icon <= Expand_icon $mol_icon_chevron_right
+					<= Drag $mol_drag
+						Sub <= Title $mol_button_minor
+							title <= title \
+							click? <=> select? null
+						transfer *
+							text/plain <= page_link
+							text/html \
+							text/uri-list \
+			receive?transfer <=> drop_receive?transfer null
 		<= Children $mol_list
 			rows <= child_nodes /
 	Child_node*0 $bog_wikilive_tree_node
