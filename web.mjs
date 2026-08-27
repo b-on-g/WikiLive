@@ -29685,7 +29685,7 @@ var $;
     (function ($$) {
         $mol_style_define($giper_baza_app_stat_page, {
             flex: {
-                basis: `40rem`,
+                basis: `100%`,
                 grow: 1,
             },
             Main: {
@@ -29822,7 +29822,7 @@ var $;
         $mol_style_define($giper_baza_app_stat_list, {
             Menu: {
                 flex: {
-                    basis: '25rem',
+                    basis: '30rem',
                 },
             },
             Menu_link: {
