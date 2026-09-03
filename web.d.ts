@@ -2229,165 +2229,6 @@ declare namespace $ {
 }
 
 declare namespace $ {
-
-	type $mol_pop_bubble__content_mol_pop_1 = $mol_type_enforce<
-		ReturnType< $mol_pop['bubble_content'] >
-		,
-		ReturnType< $mol_pop_bubble['content'] >
-	>
-	type $mol_pop_bubble__height_max_mol_pop_2 = $mol_type_enforce<
-		ReturnType< $mol_pop['height_max'] >
-		,
-		ReturnType< $mol_pop_bubble['height_max'] >
-	>
-	type $mol_follower__offset_mol_pop_3 = $mol_type_enforce<
-		ReturnType< $mol_pop['bubble_offset'] >
-		,
-		ReturnType< $mol_follower['offset'] >
-	>
-	type $mol_follower__align_mol_pop_4 = $mol_type_enforce<
-		ReturnType< $mol_pop['bubble_align'] >
-		,
-		ReturnType< $mol_follower['align'] >
-	>
-	type $mol_follower__Anchor_mol_pop_5 = $mol_type_enforce<
-		ReturnType< $mol_pop['Anchor'] >
-		,
-		ReturnType< $mol_follower['Anchor'] >
-	>
-	type $mol_follower__Sub_mol_pop_6 = $mol_type_enforce<
-		ReturnType< $mol_pop['Bubble'] >
-		,
-		ReturnType< $mol_follower['Sub'] >
-	>
-	export class $mol_pop extends $mol_view {
-		bubble( ): any
-		Anchor( ): any
-		bubble_offset( ): readonly(number)[]
-		bubble_align( ): readonly(number)[]
-		bubble_content( ): readonly($mol_view_content)[]
-		height_max( ): number
-		Bubble( ): $mol_pop_bubble
-		Follower( ): $mol_follower
-		showed( next?: boolean ): boolean
-		align_vert( ): string
-		align_hor( ): string
-		align( ): string
-		prefer( ): string
-		auto( ): readonly(any)[]
-		sub( ): readonly(any)[]
-		sub_visible( ): readonly(any)[]
-	}
-	
-	export class $mol_pop_bubble extends $mol_view {
-		content( ): readonly($mol_view_content)[]
-		height_max( ): number
-		sub( ): ReturnType< $mol_pop_bubble['content'] >
-		style( ): ({ 
-			'maxHeight': ReturnType< $mol_pop_bubble['height_max'] >,
-		})  & ReturnType< $mol_view['style'] >
-		attr( ): ({ 
-			'tabindex': number,
-			'popover': string,
-		})  & ReturnType< $mol_view['attr'] >
-	}
-	
-}
-
-//# sourceMappingURL=pop.view.tree.d.ts.map
-declare namespace $.$$ {
-    /**
-     * `Bubble` that can be shown anchored to `Anchor` element.
-     * @see https://mol.hyoo.ru/#!section=demos/demo=mol_pop_demo
-     */
-    class $mol_pop extends $.$mol_pop {
-        showed(next?: boolean): boolean;
-        sub_visible(): any[];
-        height_max(): number;
-        align(): string;
-        align_vert(): "suspense" | "top" | "bottom";
-        align_hor(): "suspense" | "left" | "right";
-        bubble_offset(): number[];
-        bubble_align(): number[];
-        bubble(): void;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_dom_event<EventType extends Event> extends $mol_object {
-        readonly native: EventType;
-        constructor(native: EventType);
-        prevented(next?: boolean): boolean;
-        static wrap<EventType extends Event>(event: EventType): $mol_dom_event<EventType>;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	type $mol_view__sub_mol_check_1 = $mol_type_enforce<
-		readonly(any)[]
-		,
-		ReturnType< $mol_view['sub'] >
-	>
-	export class $mol_check extends $mol_button_minor {
-		checked( next?: boolean ): boolean
-		aria_checked( ): string
-		aria_role( ): string
-		Icon( ): any
-		title( ): string
-		Title( ): $mol_view
-		label( ): readonly(any)[]
-		attr( ): ({ 
-			'mol_check_checked': ReturnType< $mol_check['checked'] >,
-			'aria-checked': ReturnType< $mol_check['aria_checked'] >,
-			'role': ReturnType< $mol_check['aria_role'] >,
-		})  & ReturnType< $mol_button_minor['attr'] >
-		sub( ): readonly($mol_view_content)[]
-	}
-	
-}
-
-//# sourceMappingURL=check.view.tree.d.ts.map
-declare namespace $.$$ {
-    /**
-     * Checkbox UI component. See Variants for more concrete implementations.
-     * @see https://mol.hyoo.ru/#!section=demos/demo=mol_check_box_demo
-     */
-    class $mol_check extends $.$mol_check {
-        click(next?: Event): void;
-        sub(): readonly $mol_view_content[];
-        label(): readonly any[];
-        aria_checked(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-
-	export class $mol_check_icon extends $mol_check {
-	}
-	
-}
-
-//# sourceMappingURL=icon.view.tree.d.ts.map
-declare namespace $ {
-
-	export class $mol_icon_brightness_4 extends $mol_icon {
-		path( ): string
-	}
-	
-}
-
-//# sourceMappingURL=4.view.tree.d.ts.map
-declare namespace $ {
     class $mol_lock extends $mol_object {
         protected promise: null | Promise<void>;
         wait(): Promise<() => void>;
@@ -2697,6 +2538,169 @@ declare namespace $ {
     }
 }
 
+declare namespace $ {
+
+	type $mol_pop_bubble__content_mol_pop_1 = $mol_type_enforce<
+		ReturnType< $mol_pop['bubble_content'] >
+		,
+		ReturnType< $mol_pop_bubble['content'] >
+	>
+	type $mol_pop_bubble__height_max_mol_pop_2 = $mol_type_enforce<
+		ReturnType< $mol_pop['height_max'] >
+		,
+		ReturnType< $mol_pop_bubble['height_max'] >
+	>
+	type $mol_follower__offset_mol_pop_3 = $mol_type_enforce<
+		ReturnType< $mol_pop['bubble_offset'] >
+		,
+		ReturnType< $mol_follower['offset'] >
+	>
+	type $mol_follower__align_mol_pop_4 = $mol_type_enforce<
+		ReturnType< $mol_pop['bubble_align'] >
+		,
+		ReturnType< $mol_follower['align'] >
+	>
+	type $mol_follower__Anchor_mol_pop_5 = $mol_type_enforce<
+		ReturnType< $mol_pop['Anchor'] >
+		,
+		ReturnType< $mol_follower['Anchor'] >
+	>
+	type $mol_follower__Sub_mol_pop_6 = $mol_type_enforce<
+		ReturnType< $mol_pop['Bubble'] >
+		,
+		ReturnType< $mol_follower['Sub'] >
+	>
+	export class $mol_pop extends $mol_view {
+		align( ): string
+		bubble( ): any
+		Anchor( ): any
+		bubble_offset( ): readonly(number)[]
+		bubble_align( ): readonly(number)[]
+		bubble_content( ): readonly($mol_view_content)[]
+		height_max( ): number
+		Bubble( ): $mol_pop_bubble
+		Follower( ): $mol_follower
+		showed( next?: boolean ): boolean
+		align_vert( ): string
+		align_hor( ): string
+		direction( ): string
+		align_enriched( ): ReturnType< $mol_pop['align'] >
+		prefer( ): string
+		auto( ): readonly(any)[]
+		sub( ): readonly(any)[]
+		sub_visible( ): readonly(any)[]
+	}
+	
+	export class $mol_pop_bubble extends $mol_view {
+		content( ): readonly($mol_view_content)[]
+		height_max( ): number
+		sub( ): ReturnType< $mol_pop_bubble['content'] >
+		style( ): ({ 
+			'maxHeight': ReturnType< $mol_pop_bubble['height_max'] >,
+		})  & ReturnType< $mol_view['style'] >
+		attr( ): ({ 
+			'tabindex': number,
+			'popover': string,
+		})  & ReturnType< $mol_view['attr'] >
+	}
+	
+}
+
+//# sourceMappingURL=pop.view.tree.d.ts.map
+declare namespace $.$$ {
+    /**
+     * `Bubble` that can be shown anchored to `Anchor` element.
+     * @see https://mol.hyoo.ru/#!section=demos/demo=mol_pop_demo
+     */
+    class $mol_pop extends $.$mol_pop {
+        showed(next?: boolean): boolean;
+        sub_visible(): any[];
+        height_max(): number;
+        align(): string;
+        align_vert(): "suspense" | "top" | "bottom";
+        align_hor(): "suspense" | "left" | "right";
+        direction(): "ltr" | "rtl";
+        align_enriched(): string;
+        bubble_offset(): number[];
+        bubble_align(): number[];
+        bubble(): void;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_dom_event<EventType extends Event> extends $mol_object {
+        readonly native: EventType;
+        constructor(native: EventType);
+        prevented(next?: boolean): boolean;
+        static wrap<EventType extends Event>(event: EventType): $mol_dom_event<EventType>;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	type $mol_view__sub_mol_check_1 = $mol_type_enforce<
+		readonly(any)[]
+		,
+		ReturnType< $mol_view['sub'] >
+	>
+	export class $mol_check extends $mol_button_minor {
+		checked( next?: boolean ): boolean
+		aria_checked( ): string
+		aria_role( ): string
+		Icon( ): any
+		title( ): string
+		Title( ): $mol_view
+		label( ): readonly(any)[]
+		attr( ): ({ 
+			'mol_check_checked': ReturnType< $mol_check['checked'] >,
+			'aria-checked': ReturnType< $mol_check['aria_checked'] >,
+			'role': ReturnType< $mol_check['aria_role'] >,
+		})  & ReturnType< $mol_button_minor['attr'] >
+		sub( ): readonly($mol_view_content)[]
+	}
+	
+}
+
+//# sourceMappingURL=check.view.tree.d.ts.map
+declare namespace $.$$ {
+    /**
+     * Checkbox UI component. See Variants for more concrete implementations.
+     * @see https://mol.hyoo.ru/#!section=demos/demo=mol_check_box_demo
+     */
+    class $mol_check extends $.$mol_check {
+        click(next?: Event): void;
+        sub(): readonly $mol_view_content[];
+        label(): readonly any[];
+        aria_checked(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+
+	export class $mol_check_icon extends $mol_check {
+	}
+	
+}
+
+//# sourceMappingURL=icon.view.tree.d.ts.map
+declare namespace $ {
+
+	export class $mol_icon_brightness_4 extends $mol_icon {
+		path( ): string
+	}
+	
+}
+
+//# sourceMappingURL=4.view.tree.d.ts.map
 declare namespace $ {
 
 	export class $mol_lights_toggle extends $mol_check_icon {

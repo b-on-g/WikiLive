@@ -5136,6 +5136,9 @@ var $;
 
 ;
 	($.$mol_pop) = class $mol_pop extends ($.$mol_view) {
+		align(){
+			return "bottom_center";
+		}
 		bubble(){
 			return null;
 		}
@@ -5178,8 +5181,11 @@ var $;
 		align_hor(){
 			return "";
 		}
-		align(){
-			return "bottom_center";
+		direction(){
+			return "ltr";
+		}
+		align_enriched(){
+			return (this.align());
 		}
 		prefer(){
 			return "vert";
@@ -5218,279 +5224,6 @@ var $;
 			};
 		}
 	};
-
-
-;
-"use strict";
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        /**
-         * `Bubble` that can be shown anchored to `Anchor` element.
-         * @see https://mol.hyoo.ru/#!section=demos/demo=mol_pop_demo
-         */
-        class $mol_pop extends $.$mol_pop {
-            showed(next = false) {
-                this.focused();
-                return next;
-            }
-            sub_visible() {
-                return [
-                    this.Anchor(),
-                    ...this.showed() ? [this.Follower()] : [],
-                ];
-            }
-            height_max() {
-                const viewport = this.$.$mol_window.size();
-                const rect_bubble = this.view_rect();
-                const align = this.align_vert();
-                if (align === 'bottom')
-                    return (viewport.height - rect_bubble.bottom);
-                if (align === 'top')
-                    return rect_bubble.top;
-                return 0;
-            }
-            align() {
-                switch (this.prefer()) {
-                    case 'hor': return `${this.align_hor()}_${this.align_vert()}`;
-                    case 'vert': return `${this.align_vert()}_${this.align_hor()}`;
-                    default: return this.prefer();
-                }
-            }
-            align_vert() {
-                const rect_pop = this.view_rect();
-                if (!rect_pop)
-                    return 'suspense';
-                const viewport = this.$.$mol_window.size();
-                return rect_pop.top > viewport.height / 2 ? 'top' : 'bottom';
-            }
-            align_hor() {
-                const rect_pop = this.view_rect();
-                if (!rect_pop)
-                    return 'suspense';
-                const viewport = this.$.$mol_window.size();
-                return rect_pop.left > viewport.width / 2 ? 'left' : 'right';
-            }
-            bubble_offset() {
-                const tags = new Set(this.align().split('_'));
-                if (tags.has('suspense'))
-                    return [0, 0];
-                const hor = tags.has('right') ? 'right' : tags.has('left') ? 'left' : 'center';
-                const vert = tags.has('bottom') ? 'bottom' : tags.has('top') ? 'top' : 'center';
-                if ([...tags][0] === hor) {
-                    return [
-                        { left: 0, center: .5, right: 1 }[hor],
-                        { top: 1, center: .5, bottom: 0 }[vert],
-                    ];
-                }
-                else {
-                    return [
-                        { left: 1, center: .5, right: 0 }[hor],
-                        { top: 0, center: .5, bottom: 1 }[vert],
-                    ];
-                }
-            }
-            bubble_align() {
-                const tags = new Set(this.align().split('_'));
-                if (tags.has('suspense'))
-                    return [-.5, -.5];
-                const hor = tags.has('right') ? 'right' : tags.has('left') ? 'left' : 'center';
-                const vert = tags.has('bottom') ? 'bottom' : tags.has('top') ? 'top' : 'center';
-                return [
-                    { left: -1, center: -.5, right: 0, suspense: -.5 }[hor],
-                    { top: -1, center: -.5, bottom: 0, suspense: -.5 }[vert],
-                ];
-            }
-            bubble() {
-                if (!this.showed())
-                    return;
-                this.Bubble().dom_node().showPopover?.();
-            }
-        }
-        __decorate([
-            $mol_mem
-        ], $mol_pop.prototype, "showed", null);
-        __decorate([
-            $mol_mem
-        ], $mol_pop.prototype, "sub_visible", null);
-        __decorate([
-            $mol_mem
-        ], $mol_pop.prototype, "height_max", null);
-        __decorate([
-            $mol_mem
-        ], $mol_pop.prototype, "align", null);
-        __decorate([
-            $mol_mem
-        ], $mol_pop.prototype, "align_vert", null);
-        __decorate([
-            $mol_mem
-        ], $mol_pop.prototype, "align_hor", null);
-        __decorate([
-            $mol_mem
-        ], $mol_pop.prototype, "bubble_offset", null);
-        __decorate([
-            $mol_mem
-        ], $mol_pop.prototype, "bubble_align", null);
-        __decorate([
-            $mol_mem
-        ], $mol_pop.prototype, "bubble", null);
-        $$.$mol_pop = $mol_pop;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/pop/pop.view.css", "@keyframes mol_pop_show {\n\tfrom {\n\t\topacity: 0;\n\t}\n}\n\n[mol_pop] {\n\tposition: relative;\n\tdisplay: inline-flex;\n}\n\n[mol_pop_bubble] {\n\tborder: none;\n\tpadding: 0;\n\tcolor: var(--mol_theme_text);\n\tbox-shadow: 0 0 1rem hsla(0,0%,0%,.5);\n\tborder-radius: var(--mol_gap_round);\n\tposition: fixed;\n\tz-index: var(--mol_layer_popup);\n\tbackground: var(--mol_theme_back);\n\tmax-width: none;\n\tmax-height: none;\n\t/* overflow: hidden;\n\toverflow-y: scroll;\n\toverflow-y: overlay; */\n\tword-break: normal;\n\twidth: max-content;\n\t/* height: max-content; */\n\tflex-direction: column;\n\tmax-width: calc( 100vw - var(--mol_gap_page) );\n\tmax-height: 80vw;\n\tcontain: paint;\n\ttransition-property: opacity;\n\t/* Safari ios layer fix, https://t.me/mam_mol/170017 */\n\ttransform: translateZ(0);\n\tanimation: mol_pop_show .1s ease-in;\n}\n\n:where( [mol_pop_bubble] > * ) {\n\tbackground: var(--mol_theme_card);\n}\n\n[mol_pop_bubble][mol_scroll] {\n\tbackground: var(--mol_theme_back);\n}\n\n[mol_pop_bubble]:focus {\n\toutline: none;\n}\n");
-})($ || ($ = {}));
-
-;
-	($.$mol_check) = class $mol_check extends ($.$mol_button_minor) {
-		checked(next){
-			if(next !== undefined) return next;
-			return false;
-		}
-		aria_checked(){
-			return "false";
-		}
-		aria_role(){
-			return "checkbox";
-		}
-		Icon(){
-			return null;
-		}
-		title(){
-			return "";
-		}
-		Title(){
-			const obj = new this.$.$mol_view();
-			(obj.sub) = () => ([(this.title())]);
-			return obj;
-		}
-		label(){
-			return [(this.Title())];
-		}
-		attr(){
-			return {
-				...(super.attr()), 
-				"mol_check_checked": (this.checked()), 
-				"aria-checked": (this.aria_checked()), 
-				"role": (this.aria_role())
-			};
-		}
-		sub(){
-			return [(this.Icon()), (this.label())];
-		}
-	};
-	($mol_mem(($.$mol_check.prototype), "checked"));
-	($mol_mem(($.$mol_check.prototype), "Title"));
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_dom_event extends $mol_object {
-        native;
-        constructor(native) {
-            super();
-            this.native = native;
-        }
-        prevented(next) {
-            if (next)
-                this.native.preventDefault();
-            return this.native.defaultPrevented;
-        }
-        static wrap(event) {
-            return new this.$.$mol_dom_event(event);
-        }
-    }
-    __decorate([
-        $mol_action
-    ], $mol_dom_event.prototype, "prevented", null);
-    __decorate([
-        $mol_action
-    ], $mol_dom_event, "wrap", null);
-    $.$mol_dom_event = $mol_dom_event;
-})($ || ($ = {}));
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/check/check.css", "[mol_check] {\n\tflex: 0 0 auto;\n\tjustify-content: flex-start;\n\talign-content: center;\n\t/* align-items: flex-start; */\n\tborder: none;\n\tfont-weight: inherit;\n\tbox-shadow: none;\n\ttext-align: start;\n\tdisplay: inline-flex;\n\tflex-wrap: nowrap;\n}\n\n[mol_check_title] {\n\tflex-shrink: 1;\n}\n");
-})($ || ($ = {}));
-
-;
-"use strict";
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        /**
-         * Checkbox UI component. See Variants for more concrete implementations.
-         * @see https://mol.hyoo.ru/#!section=demos/demo=mol_check_box_demo
-         */
-        class $mol_check extends $.$mol_check {
-            click(next) {
-                const event = next ? $mol_dom_event.wrap(next) : null;
-                if (event?.prevented())
-                    return;
-                event?.prevented(true);
-                this.checked(!this.checked());
-            }
-            sub() {
-                return [
-                    ...$mol_maybe(this.Icon()),
-                    ...this.label(),
-                ];
-            }
-            label() {
-                return this.title() ? super.label() : [];
-            }
-            aria_checked() {
-                return String(this.checked());
-            }
-        }
-        $$.$mol_check = $mol_check;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-
-;
-	($.$mol_check_icon) = class $mol_check_icon extends ($.$mol_check) {};
-
-
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/check/icon/icon.view.css", "[mol_check_icon]:where([mol_check_checked]) {\n\tcolor: var(--mol_theme_current);\n}\n");
-})($ || ($ = {}));
-
-;
-"use strict";
-
-
-;
-	($.$mol_icon_brightness_4) = class $mol_icon_brightness_4 extends ($.$mol_icon) {
-		path(){
-			return "M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31L23.31,12L20,8.69Z";
-		}
-	};
-
-
-;
-"use strict";
 
 
 ;
@@ -6638,6 +6371,287 @@ var $;
     ], $mol_locale, "warn", null);
     $.$mol_locale = $mol_locale;
 })($ || ($ = {}));
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        /**
+         * `Bubble` that can be shown anchored to `Anchor` element.
+         * @see https://mol.hyoo.ru/#!section=demos/demo=mol_pop_demo
+         */
+        class $mol_pop extends $.$mol_pop {
+            showed(next = false) {
+                this.focused();
+                return next;
+            }
+            sub_visible() {
+                return [
+                    this.Anchor(),
+                    ...this.showed() ? [this.Follower()] : [],
+                ];
+            }
+            height_max() {
+                const viewport = this.$.$mol_window.size();
+                const rect_bubble = this.view_rect();
+                const align = this.align_vert();
+                if (align === 'bottom')
+                    return (viewport.height - rect_bubble.bottom);
+                if (align === 'top')
+                    return rect_bubble.top;
+                return 0;
+            }
+            align() {
+                switch (this.prefer()) {
+                    case 'hor': return `${this.align_hor()}_${this.align_vert()}`;
+                    case 'vert': return `${this.align_vert()}_${this.align_hor()}`;
+                    default: return this.prefer();
+                }
+            }
+            align_vert() {
+                const rect_pop = this.view_rect();
+                if (!rect_pop)
+                    return 'suspense';
+                const viewport = this.$.$mol_window.size();
+                return rect_pop.top > viewport.height / 2 ? 'top' : 'bottom';
+            }
+            align_hor() {
+                const rect_pop = this.view_rect();
+                if (!rect_pop)
+                    return 'suspense';
+                const viewport = this.$.$mol_window.size();
+                return rect_pop.left > viewport.width / 2 ? 'left' : 'right';
+            }
+            direction() { return this.$.$mol_locale.direction(); }
+            align_enriched() {
+                const align = this.align();
+                const rtl = this.direction() === 'rtl';
+                const start = rtl ? 'right' : 'left';
+                const end = rtl ? 'left' : 'right';
+                return align.replace('start', start).replace('end', end);
+            }
+            bubble_offset() {
+                const tags = new Set(this.align_enriched().split('_'));
+                if (tags.has('suspense'))
+                    return [0, 0];
+                const hor = tags.has('right') ? 'right' : tags.has('left') ? 'left' : 'center';
+                const vert = tags.has('bottom') ? 'bottom' : tags.has('top') ? 'top' : 'center';
+                if ([...tags][0] === hor) {
+                    return [
+                        { left: 0, center: .5, right: 1 }[hor],
+                        { top: 1, center: .5, bottom: 0 }[vert],
+                    ];
+                }
+                else {
+                    return [
+                        { left: 1, center: .5, right: 0 }[hor],
+                        { top: 0, center: .5, bottom: 1 }[vert],
+                    ];
+                }
+            }
+            bubble_align() {
+                const tags = new Set(this.align_enriched().split('_'));
+                if (tags.has('suspense'))
+                    return [-.5, -.5];
+                const hor = tags.has('right') ? 'right' : tags.has('left') ? 'left' : 'center';
+                const vert = tags.has('bottom') ? 'bottom' : tags.has('top') ? 'top' : 'center';
+                return [
+                    { left: -1, center: -.5, right: 0, suspense: -.5 }[hor],
+                    { top: -1, center: -.5, bottom: 0, suspense: -.5 }[vert],
+                ];
+            }
+            bubble() {
+                if (!this.showed())
+                    return;
+                this.Bubble().dom_node().showPopover?.();
+            }
+        }
+        __decorate([
+            $mol_mem
+        ], $mol_pop.prototype, "showed", null);
+        __decorate([
+            $mol_mem
+        ], $mol_pop.prototype, "sub_visible", null);
+        __decorate([
+            $mol_mem
+        ], $mol_pop.prototype, "height_max", null);
+        __decorate([
+            $mol_mem
+        ], $mol_pop.prototype, "align", null);
+        __decorate([
+            $mol_mem
+        ], $mol_pop.prototype, "align_vert", null);
+        __decorate([
+            $mol_mem
+        ], $mol_pop.prototype, "align_hor", null);
+        __decorate([
+            $mol_mem
+        ], $mol_pop.prototype, "bubble_offset", null);
+        __decorate([
+            $mol_mem
+        ], $mol_pop.prototype, "bubble_align", null);
+        __decorate([
+            $mol_mem
+        ], $mol_pop.prototype, "bubble", null);
+        $$.$mol_pop = $mol_pop;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/pop/pop.view.css", "@keyframes mol_pop_show {\n\tfrom {\n\t\topacity: 0;\n\t}\n}\n\n[mol_pop] {\n\tposition: relative;\n\tdisplay: inline-flex;\n}\n\n[mol_pop_bubble] {\n\tborder: none;\n\tpadding: 0;\n\tcolor: var(--mol_theme_text);\n\tbox-shadow: 0 0 1rem hsla(0,0%,0%,.5);\n\tborder-radius: var(--mol_gap_round);\n\tposition: fixed;\n\tz-index: var(--mol_layer_popup);\n\tbackground: var(--mol_theme_back);\n\tmax-width: none;\n\tmax-height: none;\n\t/* overflow: hidden;\n\toverflow-y: scroll;\n\toverflow-y: overlay; */\n\tword-break: normal;\n\twidth: max-content;\n\t/* height: max-content; */\n\tflex-direction: column;\n\tmax-width: calc( 100vw - var(--mol_gap_page) );\n\tmax-height: 80vw;\n\tcontain: paint;\n\ttransition-property: opacity;\n\t/* Safari ios layer fix, https://t.me/mam_mol/170017 */\n\ttransform: translateZ(0);\n\tanimation: mol_pop_show .1s ease-in;\n}\n\n:where( [mol_pop_bubble] > * ) {\n\tbackground: var(--mol_theme_card);\n}\n\n[mol_pop_bubble][mol_scroll] {\n\tbackground: var(--mol_theme_back);\n}\n\n[mol_pop_bubble]:focus {\n\toutline: none;\n}\n");
+})($ || ($ = {}));
+
+;
+	($.$mol_check) = class $mol_check extends ($.$mol_button_minor) {
+		checked(next){
+			if(next !== undefined) return next;
+			return false;
+		}
+		aria_checked(){
+			return "false";
+		}
+		aria_role(){
+			return "checkbox";
+		}
+		Icon(){
+			return null;
+		}
+		title(){
+			return "";
+		}
+		Title(){
+			const obj = new this.$.$mol_view();
+			(obj.sub) = () => ([(this.title())]);
+			return obj;
+		}
+		label(){
+			return [(this.Title())];
+		}
+		attr(){
+			return {
+				...(super.attr()), 
+				"mol_check_checked": (this.checked()), 
+				"aria-checked": (this.aria_checked()), 
+				"role": (this.aria_role())
+			};
+		}
+		sub(){
+			return [(this.Icon()), (this.label())];
+		}
+	};
+	($mol_mem(($.$mol_check.prototype), "checked"));
+	($mol_mem(($.$mol_check.prototype), "Title"));
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_dom_event extends $mol_object {
+        native;
+        constructor(native) {
+            super();
+            this.native = native;
+        }
+        prevented(next) {
+            if (next)
+                this.native.preventDefault();
+            return this.native.defaultPrevented;
+        }
+        static wrap(event) {
+            return new this.$.$mol_dom_event(event);
+        }
+    }
+    __decorate([
+        $mol_action
+    ], $mol_dom_event.prototype, "prevented", null);
+    __decorate([
+        $mol_action
+    ], $mol_dom_event, "wrap", null);
+    $.$mol_dom_event = $mol_dom_event;
+})($ || ($ = {}));
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/check/check.css", "[mol_check] {\n\tflex: 0 0 auto;\n\tjustify-content: flex-start;\n\talign-content: center;\n\t/* align-items: flex-start; */\n\tborder: none;\n\tfont-weight: inherit;\n\tbox-shadow: none;\n\ttext-align: start;\n\tdisplay: inline-flex;\n\tflex-wrap: nowrap;\n}\n\n[mol_check_title] {\n\tflex-shrink: 1;\n}\n");
+})($ || ($ = {}));
+
+;
+"use strict";
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        /**
+         * Checkbox UI component. See Variants for more concrete implementations.
+         * @see https://mol.hyoo.ru/#!section=demos/demo=mol_check_box_demo
+         */
+        class $mol_check extends $.$mol_check {
+            click(next) {
+                const event = next ? $mol_dom_event.wrap(next) : null;
+                if (event?.prevented())
+                    return;
+                event?.prevented(true);
+                this.checked(!this.checked());
+            }
+            sub() {
+                return [
+                    ...$mol_maybe(this.Icon()),
+                    ...this.label(),
+                ];
+            }
+            label() {
+                return this.title() ? super.label() : [];
+            }
+            aria_checked() {
+                return String(this.checked());
+            }
+        }
+        $$.$mol_check = $mol_check;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+
+;
+	($.$mol_check_icon) = class $mol_check_icon extends ($.$mol_check) {};
+
+
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/check/icon/icon.view.css", "[mol_check_icon]:where([mol_check_checked]) {\n\tcolor: var(--mol_theme_current);\n}\n");
+})($ || ($ = {}));
+
+;
+"use strict";
+
+
+;
+	($.$mol_icon_brightness_4) = class $mol_icon_brightness_4 extends ($.$mol_icon) {
+		path(){
+			return "M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31L23.31,12L20,8.69Z";
+		}
+	};
+
+
+;
+"use strict";
+
 
 ;
 	($.$mol_lights_toggle) = class $mol_lights_toggle extends ($.$mol_check_icon) {
