@@ -653,8 +653,8 @@ declare namespace $ {
         dir: string;
     }> {
     }
-    const $mol_run_spawn: (...args: Parameters<(typeof $node)["child_process"]["spawn"]>) => import("node:child_process").ChildProcess;
-    const $mol_run_spawn_sync: (...args: Parameters<(typeof $node)["child_process"]["spawnSync"]>) => import("node:child_process").SpawnSyncReturns<string | NonSharedBuffer>;
+    const $mol_run_spawn: (...args: Parameters<(typeof $node)["child_process"]["spawn"]>) => import("child_process").ChildProcess;
+    const $mol_run_spawn_sync: (...args: Parameters<(typeof $node)["child_process"]["spawnSync"]>) => import("child_process").SpawnSyncReturns<string | NonSharedBuffer>;
     type $mol_run_options = {
         command: readonly string[] | string;
         dir: string;
@@ -663,10 +663,10 @@ declare namespace $ {
     };
     class $mol_run extends $mol_object {
         static async_enabled(): boolean;
-        static spawn(options: $mol_run_options): import("node:child_process").SpawnSyncReturns<string | NonSharedBuffer> | $mol_run_error_context;
+        static spawn(options: $mol_run_options): import("child_process").SpawnSyncReturns<string | NonSharedBuffer> | $mol_run_error_context;
         static spawn_async({ dir, sync, timeout, command, env }: $mol_run_options & {
             sync?: boolean;
-        }): import("node:child_process").SpawnSyncReturns<string | NonSharedBuffer> | (Promise<$mol_run_error_context> & {
+        }): import("child_process").SpawnSyncReturns<string | NonSharedBuffer> | (Promise<$mol_run_error_context> & {
             destructor: () => void;
         });
         static error_message(res?: $mol_run_error_context): string;
@@ -1955,7 +1955,7 @@ declare namespace $ {
 declare namespace $ {
     class $mol_storage_node extends $mol_storage {
         static persisted(): boolean;
-        static stats(): import("node:fs").StatsFs;
+        static stats(): import("fs").StatsFs;
         static total(): number;
         static used(): number;
         static free(): number;
@@ -5275,7 +5275,7 @@ declare namespace $ {
         static [Symbol.match](str: string): RegExpMatchArray | null;
         static [Symbol.matchAll](str: string): RegExpStringIterator<RegExpExecArray>;
         static hole: $giper_baza_link;
-        static check(val: string): string | null;
+        static check(val: string): $giper_baza_link | null;
         [$mol_key_handle](): string;
         toString(): string;
         toJSON(): string;
@@ -6227,7 +6227,7 @@ declare namespace $ {
         seal_item_del(lord: $giper_baza_link, hash: $giper_baza_link): void;
         seal_item_set(seal: $giper_baza_unit_seal, hash: $giper_baza_link): void;
         sand_get(head: $giper_baza_link, lord: $giper_baza_link, self: $giper_baza_link): $giper_baza_unit_sand | null;
-        _self_all: $mol_wire_dict<string, $giper_baza_unit_sand | null>;
+        _self_all: Map<string, boolean>;
         /** Generates unique local id base on optional idea number or random. */
         self_make(idea?: number): $giper_baza_link;
         /** Makes new Area based on Idea or random. Once transfers rights from this Land. */
@@ -7031,7 +7031,7 @@ declare namespace $ {
         static tag: keyof typeof $giper_baza_unit_sand_tag;
         /** All Vary in the list. */
         items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-        /** Replace sublist by  new one with reconciliation. */
+        /** Replace sublist by new one with reconciliation. */
         splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
         /** Unit by Vary. */
         find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -7178,7 +7178,7 @@ declare namespace $ {
                 })["default"][];
                 /** All Vary in the list. */
                 items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                /** Replace sublist by  new one with reconciliation. */
+                /** Replace sublist by new one with reconciliation. */
                 splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                 /** Unit by Vary. */
                 find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -7299,7 +7299,7 @@ declare namespace $ {
             items(next?: readonly Uint8Array<ArrayBuffer>[] | undefined): readonly Uint8Array<ArrayBuffer>[];
             /** All Vary in the list. */
             items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-            /** Replace sublist by  new one with reconciliation. */
+            /** Replace sublist by new one with reconciliation. */
             splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
             /** Unit by Vary. */
             find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -7534,7 +7534,7 @@ declare namespace $ {
                 })["default"][];
                 /** All Vary in the list. */
                 items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                /** Replace sublist by  new one with reconciliation. */
+                /** Replace sublist by new one with reconciliation. */
                 splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                 /** Unit by Vary. */
                 find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -7666,7 +7666,7 @@ declare namespace $ {
             items(next?: readonly boolean[] | undefined): readonly boolean[];
             /** All Vary in the list. */
             items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-            /** Replace sublist by  new one with reconciliation. */
+            /** Replace sublist by new one with reconciliation. */
             splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
             /** Unit by Vary. */
             find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -7839,7 +7839,7 @@ declare namespace $ {
                 })["default"][];
                 /** All Vary in the list. */
                 items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                /** Replace sublist by  new one with reconciliation. */
+                /** Replace sublist by new one with reconciliation. */
                 splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                 /** Unit by Vary. */
                 find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -7971,7 +7971,7 @@ declare namespace $ {
             items(next?: readonly bigint[] | undefined): readonly bigint[];
             /** All Vary in the list. */
             items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-            /** Replace sublist by  new one with reconciliation. */
+            /** Replace sublist by new one with reconciliation. */
             splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
             /** Unit by Vary. */
             find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -8144,7 +8144,7 @@ declare namespace $ {
                 })["default"][];
                 /** All Vary in the list. */
                 items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                /** Replace sublist by  new one with reconciliation. */
+                /** Replace sublist by new one with reconciliation. */
                 splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                 /** Unit by Vary. */
                 find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -8276,7 +8276,7 @@ declare namespace $ {
             items(next?: readonly number[] | undefined): readonly number[];
             /** All Vary in the list. */
             items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-            /** Replace sublist by  new one with reconciliation. */
+            /** Replace sublist by new one with reconciliation. */
             splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
             /** Unit by Vary. */
             find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -8449,7 +8449,7 @@ declare namespace $ {
                 })["default"][];
                 /** All Vary in the list. */
                 items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                /** Replace sublist by  new one with reconciliation. */
+                /** Replace sublist by new one with reconciliation. */
                 splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                 /** Unit by Vary. */
                 find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -8581,7 +8581,7 @@ declare namespace $ {
             items(next?: readonly string[] | undefined): readonly string[];
             /** All Vary in the list. */
             items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-            /** Replace sublist by  new one with reconciliation. */
+            /** Replace sublist by new one with reconciliation. */
             splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
             /** Unit by Vary. */
             find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -8754,7 +8754,7 @@ declare namespace $ {
                 })["default"][];
                 /** All Vary in the list. */
                 items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                /** Replace sublist by  new one with reconciliation. */
+                /** Replace sublist by new one with reconciliation. */
                 splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                 /** Unit by Vary. */
                 find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -8886,7 +8886,7 @@ declare namespace $ {
             items(next?: readonly $mol_time_moment[] | undefined): readonly $mol_time_moment[];
             /** All Vary in the list. */
             items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-            /** Replace sublist by  new one with reconciliation. */
+            /** Replace sublist by new one with reconciliation. */
             splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
             /** Unit by Vary. */
             find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -9121,7 +9121,7 @@ declare namespace $ {
                 })["default"][];
                 /** All Vary in the list. */
                 items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                /** Replace sublist by  new one with reconciliation. */
+                /** Replace sublist by new one with reconciliation. */
                 splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                 /** Unit by Vary. */
                 find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -9253,7 +9253,7 @@ declare namespace $ {
             items(next?: readonly $mol_time_duration[] | undefined): readonly $mol_time_duration[];
             /** All Vary in the list. */
             items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-            /** Replace sublist by  new one with reconciliation. */
+            /** Replace sublist by new one with reconciliation. */
             splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
             /** Unit by Vary. */
             find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -9488,7 +9488,7 @@ declare namespace $ {
                 })["default"][];
                 /** All Vary in the list. */
                 items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                /** Replace sublist by  new one with reconciliation. */
+                /** Replace sublist by new one with reconciliation. */
                 splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                 /** Unit by Vary. */
                 find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -9620,7 +9620,7 @@ declare namespace $ {
             items(next?: readonly $mol_time_interval[] | undefined): readonly $mol_time_interval[];
             /** All Vary in the list. */
             items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-            /** Replace sublist by  new one with reconciliation. */
+            /** Replace sublist by new one with reconciliation. */
             splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
             /** Unit by Vary. */
             find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -9855,7 +9855,7 @@ declare namespace $ {
                 })["default"][];
                 /** All Vary in the list. */
                 items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                /** Replace sublist by  new one with reconciliation. */
+                /** Replace sublist by new one with reconciliation. */
                 splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                 /** Unit by Vary. */
                 find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -9987,7 +9987,7 @@ declare namespace $ {
             items(next?: readonly Record<string, unknown>[] | undefined): readonly Record<string, unknown>[];
             /** All Vary in the list. */
             items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-            /** Replace sublist by  new one with reconciliation. */
+            /** Replace sublist by new one with reconciliation. */
             splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
             /** Unit by Vary. */
             find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -10222,7 +10222,7 @@ declare namespace $ {
                 })["default"][];
                 /** All Vary in the list. */
                 items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                /** Replace sublist by  new one with reconciliation. */
+                /** Replace sublist by new one with reconciliation. */
                 splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                 /** Unit by Vary. */
                 find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -10354,7 +10354,7 @@ declare namespace $ {
             items(next?: readonly (readonly unknown[])[] | undefined): readonly (readonly unknown[])[];
             /** All Vary in the list. */
             items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-            /** Replace sublist by  new one with reconciliation. */
+            /** Replace sublist by new one with reconciliation. */
             splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
             /** Unit by Vary. */
             find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -10589,7 +10589,7 @@ declare namespace $ {
                 })["default"][];
                 /** All Vary in the list. */
                 items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                /** Replace sublist by  new one with reconciliation. */
+                /** Replace sublist by new one with reconciliation. */
                 splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                 /** Unit by Vary. */
                 find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -10721,7 +10721,7 @@ declare namespace $ {
             items(next?: readonly Element[] | undefined): readonly Element[];
             /** All Vary in the list. */
             items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-            /** Replace sublist by  new one with reconciliation. */
+            /** Replace sublist by new one with reconciliation. */
             splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
             /** Unit by Vary. */
             find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -10959,7 +10959,7 @@ declare namespace $ {
                 })["default"][];
                 /** All Vary in the list. */
                 items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                /** Replace sublist by  new one with reconciliation. */
+                /** Replace sublist by new one with reconciliation. */
                 splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                 /** Unit by Vary. */
                 find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -11091,7 +11091,7 @@ declare namespace $ {
             items(next?: readonly $mol_tree2[] | undefined): readonly $mol_tree2[];
             /** All Vary in the list. */
             items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-            /** Replace sublist by  new one with reconciliation. */
+            /** Replace sublist by new one with reconciliation. */
             splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
             /** Unit by Vary. */
             find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -11326,7 +11326,7 @@ declare namespace $ {
                 })["default"][];
                 /** All Vary in the list. */
                 items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                /** Replace sublist by  new one with reconciliation. */
+                /** Replace sublist by new one with reconciliation. */
                 splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                 /** Unit by Vary. */
                 find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -11458,7 +11458,7 @@ declare namespace $ {
             items(next?: readonly $giper_baza_link[] | undefined): readonly $giper_baza_link[];
             /** All Vary in the list. */
             items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-            /** Replace sublist by  new one with reconciliation. */
+            /** Replace sublist by new one with reconciliation. */
             splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
             /** Unit by Vary. */
             find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -11693,7 +11693,7 @@ declare namespace $ {
                 })["default"][];
                 /** All Vary in the list. */
                 items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                /** Replace sublist by  new one with reconciliation. */
+                /** Replace sublist by new one with reconciliation. */
                 splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                 /** Unit by Vary. */
                 find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -11831,7 +11831,7 @@ declare namespace $ {
                 items(next?: readonly $giper_baza_link[] | undefined): readonly $giper_baza_link[];
                 /** All Vary in the list. */
                 items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                /** Replace sublist by  new one with reconciliation. */
+                /** Replace sublist by new one with reconciliation. */
                 splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                 /** Unit by Vary. */
                 find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -12067,7 +12067,7 @@ declare namespace $ {
                     })["default"][];
                     /** All Vary in the list. */
                     items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                    /** Replace sublist by  new one with reconciliation. */
+                    /** Replace sublist by new one with reconciliation. */
                     splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                     /** Unit by Vary. */
                     find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -12204,7 +12204,7 @@ declare namespace $ {
             items(next?: readonly $giper_baza_link[] | undefined): readonly $giper_baza_link[];
             /** All Vary in the list. */
             items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-            /** Replace sublist by  new one with reconciliation. */
+            /** Replace sublist by new one with reconciliation. */
             splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
             /** Unit by Vary. */
             find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -12257,7 +12257,7 @@ declare namespace $ {
                 items(next?: readonly $giper_baza_link[] | undefined): readonly $giper_baza_link[];
                 /** All Vary in the list. */
                 items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                /** Replace sublist by  new one with reconciliation. */
+                /** Replace sublist by new one with reconciliation. */
                 splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                 /** Unit by Vary. */
                 find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -12493,7 +12493,7 @@ declare namespace $ {
                     })["default"][];
                     /** All Vary in the list. */
                     items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                    /** Replace sublist by  new one with reconciliation. */
+                    /** Replace sublist by new one with reconciliation. */
                     splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                     /** Unit by Vary. */
                     find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -12811,7 +12811,7 @@ declare namespace $ {
                 })["default"][];
                 /** All Vary in the list. */
                 items_vary(next?: readonly $giper_baza_vary_type[], tag?: keyof typeof $giper_baza_unit_sand_tag): readonly $giper_baza_vary_type[];
-                /** Replace sublist by  new one with reconciliation. */
+                /** Replace sublist by new one with reconciliation. */
                 splice(next: readonly $giper_baza_vary_type[], from?: number, to?: number, tag?: keyof typeof $giper_baza_unit_sand_tag): void;
                 /** Unit by Vary. */
                 find(vary: $giper_baza_vary_type): $giper_baza_unit_sand | null;
@@ -36711,11 +36711,11 @@ declare namespace $ {
         log(): boolean;
         port(): number;
         start(): void;
-        http_server(): import("node:http").Server<typeof import("node:http").IncomingMessage, typeof import("node:http").ServerResponse>;
+        http_server(): import("http").Server<typeof import("http").IncomingMessage, typeof import("http").ServerResponse>;
         http_income(req: InstanceType<$node['http']['IncomingMessage']>, res: InstanceType<$node['http']['ServerResponse']>): void;
         ws_upgrade(req: InstanceType<$node['http']['IncomingMessage']>, socket: InstanceType<$node['stream']['Duplex']>, head: Buffer<ArrayBuffer>): void;
-        _ws_income_chunks: WeakMap<import("node:stream").Duplex, Uint8Array<ArrayBuffer>[]>;
-        _ws_income_frames: WeakMap<import("node:stream").Duplex, (string | Uint8Array<ArrayBuffer>)[]>;
+        _ws_income_chunks: WeakMap<import("stream").Duplex, Uint8Array<ArrayBuffer>[]>;
+        _ws_income_frames: WeakMap<import("stream").Duplex, (string | Uint8Array<ArrayBuffer>)[]>;
         ws_income(chunk: Buffer<ArrayBuffer>, upgrade: $mol_rest_message, sock: InstanceType<typeof $node.stream.Duplex>): Promise<undefined>;
         root(resource?: $mol_rest_resource): $mol_rest_resource;
     }
